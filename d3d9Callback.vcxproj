@@ -11,12 +11,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Context.cpp" />
     <ClCompile Include="d3d9Callback.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Environment.props">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Context.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Main.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{58C6CA64-39D8-40C1-98E3-816A902971E0}</ProjectGuid>
@@ -28,13 +36,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -50,11 +58,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(LIBPNG_PATH);$(ZLIB_PATH);$(IncludePath);$(D3D9INTERCEPTOR_PATH);$(D3D9INTERCEPTOR_PATH)D3D9Wrapper;$(DIRECTX_SDK_PATH)</IncludePath>
+    <IncludePath>$(LIBPNG_INCLUDE_PATH);$(ZLIB_INCLUDE_PATH);$(IncludePath);$(D3D9INTERCEPTOR_INCLUDE_PATH);$(D3D9INTERCEPTOR_INCLUDE_PATH)D3D9Wrapper;$(DIRECTX_SDK_INCLUDE_PATH)</IncludePath>
+    <LibraryPath>$(LIBPNG_LIBRARY_PATH);$(ZLIB_LIBRARY_PATH);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(LIBPNG_PATH);$(ZLIB_PATH);$(IncludePath);$(D3D9INTERCEPTOR_PATH);$(D3D9INTERCEPTOR_PATH)D3D9Wrapper;$(DIRECTX_SDK_PATH)</IncludePath>
+    <IncludePath>$(LIBPNG_INCLUDE_PATH);$(ZLIB_INCLUDE_PATH);$(IncludePath);$(D3D9INTERCEPTOR_INCLUDE_PATH);$(D3D9INTERCEPTOR_INCLUDE_PATH)D3D9Wrapper;$(DIRECTX_SDK_INCLUDE_PATH)</IncludePath>
+    <LibraryPath>$(LIBPNG_LIBRARY_PATH);$(ZLIB_LIBRARY_PATH);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -62,12 +72,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;D3DCALLBACK_EXPORTS;_DEBUG;_WINDOWS;_USRDLL;D3D9CALLBACK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,6 +90,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;D3DCALLBACK_EXPORTS;NDEBUG;_WINDOWS;_USRDLL;D3D9CALLBACK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -86,6 +99,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

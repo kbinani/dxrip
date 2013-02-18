@@ -2,10 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <ZLIB_PATH>D:\Installer\zlib-1.2.7\</ZLIB_PATH>
-    <LIBPNG_PATH>D:\Installer\lpng1514\</LIBPNG_PATH>
-    <D3D9INTERCEPTOR_PATH>D:\Installer\D3D9Interceptor\</D3D9INTERCEPTOR_PATH>
-    <DIRECTX_SDK_PATH>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include</DIRECTX_SDK_PATH>
+    <ZLIB_INCLUDE_PATH>D:\Installer\zlib-1.2.7\</ZLIB_INCLUDE_PATH>
+    <ZLIB_LIBRARY_PATH>D:\Installer\lpng1514\projects\vstudio\Release Library\</ZLIB_LIBRARY_PATH>
+    <LIBPNG_INCLUDE_PATH>D:\Installer\lpng1514\</LIBPNG_INCLUDE_PATH>
+    <LIBPNG_LIBRARY_PATH>D:\Installer\lpng1514\projects\vstudio\Release Library\</LIBPNG_LIBRARY_PATH>
+    <D3D9INTERCEPTOR_INCLUDE_PATH>D:\Installer\D3D9Interceptor\</D3D9INTERCEPTOR_INCLUDE_PATH>
+    <DIRECTX_SDK_INCLUDE_PATH>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include</DIRECTX_SDK_INCLUDE_PATH>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />

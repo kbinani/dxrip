@@ -1,5 +1,8 @@
 #include "Main.h"
 #include "d3d9Callback.h"
+#include "Context.h"
+
+using namespace com::github::kbinani;
 
 D3D9CALLBACK_API void D3D9CallbackInitialize() {}
 D3D9CALLBACK_API void D3D9CallbackFreeMemory() {}
@@ -57,10 +60,30 @@ D3D9CALLBACK_API void ReportSetRenderTarget(DWORD RenderTargetIndex, HANDLE Surf
 //
 // Render callbacks
 //
-D3D9CALLBACK_API bool ReportDrawPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount) { return true; }
-D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(D3DPRIMITIVETYPE PrimitiveType, INT BaseVertexIndex, UINT MinIndex, UINT NumVertices, UINT StartIndex, UINT PrimitiveCount) { return true; }
-D3D9CALLBACK_API bool ReportDrawPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType, UINT PrimitiveCount, CONST void* pVertexStreamZeroData, UINT VertexStreamZeroStride) { return true; }
-D3D9CALLBACK_API bool ReportDrawIndexedPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType, UINT MinVertexIndex, UINT NumVertices, UINT PrimitiveCount, CONST void* pIndexData, D3DFORMAT IndexDataFormat, CONST void* pVertexStreamZeroData, UINT VertexStreamZeroStride) { return true; }
+D3D9CALLBACK_API bool ReportDrawPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount) {
+    Context *context = &Context::Instance();
+    context->countDrawPrimitive++;
+    context->ReportDrawCallbackStatistics();
+    return true;
+}
+D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(D3DPRIMITIVETYPE PrimitiveType, INT BaseVertexIndex, UINT MinIndex, UINT NumVertices, UINT StartIndex, UINT PrimitiveCount) {
+    Context *context = &Context::Instance();
+    context->countDrawIndexedPrimitive++;
+    context->ReportDrawCallbackStatistics();
+    return true;
+}
+D3D9CALLBACK_API bool ReportDrawPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType, UINT PrimitiveCount, CONST void* pVertexStreamZeroData, UINT VertexStreamZeroStride) {
+    Context *context = &Context::Instance();
+    context->countDrawPrimitiveUP++;
+    context->ReportDrawCallbackStatistics();
+    return true;
+}
+D3D9CALLBACK_API bool ReportDrawIndexedPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType, UINT MinVertexIndex, UINT NumVertices, UINT PrimitiveCount, CONST void* pIndexData, D3DFORMAT IndexDataFormat, CONST void* pVertexStreamZeroData, UINT VertexStreamZeroStride) {
+    Context *context = &Context::Instance();
+    context->countDrawIndexedPrimitiveUP++;
+    context->ReportDrawCallbackStatistics();
+    return true;
+}
 
 //
 // Frame buffer update callbacks
@@ -77,8 +100,12 @@ D3D9CALLBACK_API void ReportEndScene() {}
 //
 // Device reference updates
 //
-D3D9CALLBACK_API void ReportCreateDevice(D3D9Base::LPDIRECT3DDEVICE9 Device, ID3D9DeviceOverlay *Overlay) {}
+D3D9CALLBACK_API void ReportCreateDevice(D3D9Base::LPDIRECT3DDEVICE9 Device, ID3D9DeviceOverlay *Overlay) {
+    Context::Instance().screenOverlay = Overlay;
+}
 D3D9CALLBACK_API void ReportFreeDevice() {}
 
-D3D9CALLBACK_API bool PreRenderQuery(D3DPRIMITIVETYPE PrimitiveType, UINT PrimitiveCount) { return true; }
+D3D9CALLBACK_API bool PreRenderQuery(D3DPRIMITIVETYPE PrimitiveType, UINT PrimitiveCount) {
+    return false;
+}
 D3D9CALLBACK_API void ReportSetStreamSourceFreq(UINT StreamNumber, UINT FrequencyParameter) {}
