@@ -58,13 +58,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(LIBPNG_INCLUDE_PATH);$(ZLIB_INCLUDE_PATH);$(IncludePath);$(D3D9INTERCEPTOR_INCLUDE_PATH);$(D3D9INTERCEPTOR_INCLUDE_PATH)D3D9Wrapper;$(DIRECTX_SDK_INCLUDE_PATH);$(LUA_INCLUDE_PATH)</IncludePath>
-    <LibraryPath>$(LIBPNG_LIBRARY_PATH);$(ZLIB_LIBRARY_PATH);$(LUA_LIBRARY_PATH);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(D3D9InterceptorIncludePath);$(D3D9InterceptorIncludePath)D3D9Wrapper;$(DirectXSDKIncludePath);$(LuaIncludePath)</IncludePath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(LIBPNG_INCLUDE_PATH);$(ZLIB_INCLUDE_PATH);$(IncludePath);$(D3D9INTERCEPTOR_INCLUDE_PATH);$(D3D9INTERCEPTOR_INCLUDE_PATH)D3D9Wrapper;$(DIRECTX_SDK_INCLUDE_PATH);$(LUA_INCLUDE_PATH)</IncludePath>
-    <LibraryPath>$(LIBPNG_LIBRARY_PATH);$(ZLIB_LIBRARY_PATH);$(LUA_LIBRARY_PATH);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(D3D9InterceptorIncludePath);$(D3D9InterceptorIncludePath)D3D9Wrapper;$(DirectXSDKIncludePath);$(LuaIncludePath)</IncludePath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
