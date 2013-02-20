@@ -4,5 +4,5 @@ Release/*
 *.sdf
 *.suo
 *.vcxproj.filters
-*.user
+*.vcxproj.user
 ipch/*
