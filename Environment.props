@@ -8,6 +8,8 @@
     <LIBPNG_LIBRARY_PATH>D:\Installer\lpng1514\projects\vstudio\Release Library\</LIBPNG_LIBRARY_PATH>
     <D3D9INTERCEPTOR_INCLUDE_PATH>D:\Installer\D3D9Interceptor\</D3D9INTERCEPTOR_INCLUDE_PATH>
     <DIRECTX_SDK_INCLUDE_PATH>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include</DIRECTX_SDK_INCLUDE_PATH>
+    <LUA_INCLUDE_PATH>D:\Installer\lua-5.2.1\src</LUA_INCLUDE_PATH>
+    <LUA_LIBRARY_PATH>D:\Installer\lua-5.2.1\Release</LUA_LIBRARY_PATH>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />

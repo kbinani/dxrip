@@ -37,3 +37,4 @@ namespace D3D9Base {
 }
 using namespace D3D9Base;
 #include "d3d9CallbackStructures.h"
+#include "lua.h"
