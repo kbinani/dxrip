@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Context.cpp" />
-    <ClCompile Include="d3d9Callback.cpp" />
+    <ClCompile Include="d3d9callback.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
@@ -29,8 +29,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{58C6CA64-39D8-40C1-98E3-816A902971E0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>d3d9Callback</RootNamespace>
-    <ProjectName>d3d9Callback</ProjectName>
+    <RootNamespace>d3d9callback</RootNamespace>
+    <ProjectName>d3d9callback</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
