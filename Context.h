@@ -10,6 +10,7 @@ namespace com { namespace github { namespace kbinani {
     class Context {
     public:
         ID3D9DeviceOverlay *screenOverlay;
+        LPDIRECT3DDEVICE9 device;
         lua_State *state;
 
     public:

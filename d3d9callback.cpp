@@ -91,6 +91,7 @@ D3D9CALLBACK_API void ReportEndScene() {}
 D3D9CALLBACK_API void ReportCreateDevice(D3D9Base::LPDIRECT3DDEVICE9 Device, ID3D9DeviceOverlay *Overlay) {
     Context *context = Context::Instance();
     context->screenOverlay = Overlay;
+    context->device = Device;
 }
 D3D9CALLBACK_API void ReportFreeDevice() {}
 
