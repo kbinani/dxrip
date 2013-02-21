@@ -7,6 +7,7 @@ namespace com { namespace github { namespace kbinani {
         screenOverlay = NULL;
         device = NULL;
         state = lua_newstate(&luaAlloc, NULL);
+        sceneCount = 0;
     }
 
     Context *Context::Instance() {

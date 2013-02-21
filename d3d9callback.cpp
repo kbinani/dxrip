@@ -211,7 +211,11 @@ D3D9CALLBACK_API void ReportClear(DWORD Count,CONST D3DRECT* pRects,DWORD Flags,
 //
 // Scene updates
 //
-D3D9CALLBACK_API void ReportBeginScene() {}
+D3D9CALLBACK_API void ReportBeginScene() {
+    Context *context = Context::Instance();
+    context->sceneCount++;
+}
+
 D3D9CALLBACK_API void ReportEndScene() {}
 
 //
