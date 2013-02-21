@@ -12,6 +12,7 @@ namespace com { namespace github { namespace kbinani {
         ID3D9DeviceOverlay *screenOverlay;
         LPDIRECT3DDEVICE9 device;
         lua_State *state;
+        int sceneCount;
 
     public:
         static Context *Instance();
