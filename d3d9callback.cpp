@@ -63,7 +63,136 @@ D3D9CALLBACK_API void ReportSetRenderTarget(DWORD RenderTargetIndex, HANDLE Surf
 D3D9CALLBACK_API bool ReportDrawPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount) {
     return true;
 }
-D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(D3DPRIMITIVETYPE PrimitiveType, INT BaseVertexIndex, UINT MinIndex, UINT NumVertices, UINT StartIndex, UINT PrimitiveCount) {
+D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
+    D3DPRIMITIVETYPE PrimitiveType,
+    INT BaseVertexIndex,
+    UINT MinIndex,
+    UINT NumVertices,
+    UINT StartIndex,
+    UINT PrimitiveCount
+) {
+    Context *context = Context::Instance();
+    D3D9Base::IDirect3DDevice9 *device = context->device;
+    ID3D9DeviceOverlay *overlay = context->screenOverlay;
+    if (PrimitiveType == D3D9Base::D3DPT_TRIANGLELIST) {
+        UINT start = StartIndex;
+        static int count = 0;
+
+        // index buffer
+        D3D9Base::IDirect3DIndexBuffer9 *indexBuffer = NULL;
+        if (device->GetIndices(&indexBuffer) != D3D_OK) {
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; GetIndices failed"), RGBColor(), 0);
+            return true;
+        }
+
+        D3D9Base::D3DINDEXBUFFER_DESC indexBufferDesciption;
+        if (indexBuffer->GetDesc(&indexBufferDesciption) != D3D_OK) {
+            indexBuffer->Release();
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; IDirect3DIndexBuffer9::GetDesc failed"), RGBColor(), 0);
+            return true;
+        }
+        if (D3DFMT_INDEX16 != indexBufferDesciption.Format) {
+            indexBuffer->Release();
+            overlay->WriteLine(
+                String("ReportDrawIndexedPrimitive; indexBufferDesciption.Format=") + 
+                    String(indexBufferDesciption.Format) + 
+                    String(", which is not supported"),
+                RGBColor(),
+                0
+            );
+            return true;
+        }
+
+        uint16_t *indexBufferData = NULL;
+        if (indexBuffer->Lock(0, 0, (void **)&indexBufferData, D3DLOCK_READONLY) != D3D_OK) {
+            indexBuffer->Release();
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; IDirect3DIndexBuffer9::Lock failed"), RGBColor(), 0);
+            return true;
+        }
+
+        // vertex buffer
+        D3D9Base::IDirect3DVertexBuffer9 *vertexBuffer = NULL;
+        UINT offsetInBytes, stride;
+        if (device->GetStreamSource(0, &vertexBuffer, &offsetInBytes, &stride) != D3D_OK) {
+            indexBuffer->Unlock();
+            indexBuffer->Release();
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; GetStreamSource failed"), RGBColor(), 0);
+            return true;
+        }
+
+        D3D9Base::D3DVERTEXBUFFER_DESC vertexBufferDescription;
+        if (vertexBuffer->GetDesc(&vertexBufferDescription) != D3D_OK) {
+            indexBuffer->Unlock();
+            indexBuffer->Release();
+
+            vertexBuffer->Release();
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; IDirect3DVertexBuffer9::GetDesc failed"), RGBColor(), 0);
+            return true;
+        }
+
+        void *vertexBufferData = NULL;
+        if (vertexBuffer->Lock(offsetInBytes, vertexBufferDescription.Size, &vertexBufferData, D3DLOCK_READONLY) != D3D_OK) {
+            indexBuffer->Unlock();
+            indexBuffer->Release();
+
+            vertexBuffer->Release();
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; IDirect3DVertexBuffer9::Lock failed"), RGBColor(), 0);
+            return true;
+        }
+
+        std::map<uint16_t, UINT> indexMap;
+        std::vector<void *> vertexList;
+        for (UINT i = 0; i < PrimitiveCount * 3; ++i) {
+            uint16_t a = indexBufferData[BaseVertexIndex + MinIndex + i];
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; a=") + String(a) + String("; vertexBufferDescription.Size=") + String(vertexBufferDescription.Size), RGBColor(), 0);
+            if (indexMap.find(a) == indexMap.end()) {
+                indexMap.insert(std::make_pair(a, indexMap.size()));
+                vertexList.push_back((void *)((uint8_t *)vertexBufferData + stride * a));
+            }
+        }
+
+        std::ostringstream stream;
+        stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << count << ".x";
+        std::string filePath = stream.str();
+
+        std::ofstream file;
+        file.open(filePath);
+        file << "xof 0302txt 0064" << std::endl;
+        file << "Mesh {" << std::endl;
+        file << "  " << vertexList.size() << ";" << std::endl;
+        for (int i = 0; i < vertexList.size(); ++i) {
+            void *vertexInfo = vertexList[i];
+            float x = ((float *)vertexInfo)[0];
+            float y = ((float *)vertexInfo)[1];
+            float z = ((float *)vertexInfo)[2];
+            file << "  " << x << ";" << y << ";" << z << ";" << (i == vertexList.size() - 1 ? ";" : ",") << std::endl;
+        }
+
+        file << std::endl;
+
+        file << "  " << PrimitiveCount << ";" << std::endl;
+        int index = 0;
+        for (int i = 0; i < PrimitiveCount; ++i) {
+            file << "  3;";
+            for (int j = 0; j < 3; ++j) {
+                uint16_t a = indexBufferData[BaseVertexIndex + MinIndex + index + j];
+                UINT actualIndex = indexMap[a];
+                file << actualIndex << (j < 2 ? "," : ";");
+            }
+            file << (i < PrimitiveCount - 1 ? "," : ";") << std::endl;
+            index += 3;
+        }
+
+        file << "}" << std::endl;
+        file.close();
+
+        indexBuffer->Unlock();
+        indexBuffer->Release();
+        vertexBuffer->Unlock();
+        vertexBuffer->Release();
+
+        ++count;
+    }
     return true;
 }
 D3D9CALLBACK_API bool ReportDrawPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType, UINT PrimitiveCount, CONST void* pVertexStreamZeroData, UINT VertexStreamZeroStride) {
