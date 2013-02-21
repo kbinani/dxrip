@@ -77,6 +77,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
     if (PrimitiveType == D3D9Base::D3DPT_TRIANGLELIST) {
         UINT start = StartIndex;
         static int count = 0;
+        static int lastSceneCount = -1;
 
         // index buffer
         D3D9Base::IDirect3DIndexBuffer9 *indexBuffer = NULL;
@@ -152,7 +153,11 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         }
 
         std::ostringstream stream;
-        stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << count << ".x";
+        if (lastSceneCount != context->sceneCount) {
+            count = 0;
+        }
+        lastSceneCount = context->sceneCount;
+        stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << context->sceneCount << "_" << count << ".x";
         std::string filePath = stream.str();
 
         std::ofstream file;
