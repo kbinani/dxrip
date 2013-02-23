@@ -79,6 +79,9 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         static int count = 0;
         static int lastSceneCount = -1;
 
+        DWORD vertexFormat;
+        device->GetFVF(&vertexFormat);
+
         // index buffer
         D3D9Base::IDirect3DIndexBuffer9 *indexBuffer = NULL;
         if (device->GetIndices(&indexBuffer) != D3D_OK) {
@@ -125,12 +128,11 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         if (vertexBuffer->GetDesc(&vertexBufferDescription) != D3D_OK) {
             indexBuffer->Unlock();
             indexBuffer->Release();
-
             vertexBuffer->Release();
             overlay->WriteLine(String("ReportDrawIndexedPrimitive; IDirect3DVertexBuffer9::GetDesc failed"), RGBColor(), 0);
             return true;
         }
-
+        
         void *vertexBufferData = NULL;
         if (vertexBuffer->Lock(offsetInBytes, vertexBufferDescription.Size, &vertexBufferData, D3DLOCK_READONLY) != D3D_OK) {
             indexBuffer->Unlock();
@@ -145,7 +147,6 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         std::vector<void *> vertexList;
         for (UINT i = 0; i < PrimitiveCount * 3; ++i) {
             uint16_t a = indexBufferData[BaseVertexIndex + MinIndex + i];
-            overlay->WriteLine(String("ReportDrawIndexedPrimitive; a=") + String(a) + String("; vertexBufferDescription.Size=") + String(vertexBufferDescription.Size), RGBColor(), 0);
             if (indexMap.find(a) == indexMap.end()) {
                 indexMap.insert(std::make_pair(a, indexMap.size()));
                 vertexList.push_back((void *)((uint8_t *)vertexBufferData + stride * a));
@@ -163,22 +164,26 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         std::ofstream file;
         file.open(filePath);
         file << "xof 0302txt 0064" << std::endl;
-        file << "Mesh {" << std::endl;
-        file << "  " << vertexList.size() << ";" << std::endl;
+        file << "Frame Frame_" << context->sceneCount << "_" << count << " {" << std::endl;
+        file << "  Mesh {" << std::endl;
+        file << "    " << vertexList.size() << ";" << std::endl;
+        file.setf(std::ios_base::fixed, std::ios_base::floatfield);
+        file << std::setprecision(8);
+
         for (int i = 0; i < vertexList.size(); ++i) {
             void *vertexInfo = vertexList[i];
             float x = ((float *)vertexInfo)[0];
             float y = ((float *)vertexInfo)[1];
             float z = ((float *)vertexInfo)[2];
-            file << "  " << x << ";" << y << ";" << z << ";" << (i == vertexList.size() - 1 ? ";" : ",") << std::endl;
+            file << "    " << x << ";" << y << ";" << z << ";" << (i == vertexList.size() - 1 ? ";" : ",") << std::endl;
         }
 
         file << std::endl;
 
-        file << "  " << PrimitiveCount << ";" << std::endl;
+        file << "    " << PrimitiveCount << ";" << std::endl;
         int index = 0;
         for (int i = 0; i < PrimitiveCount; ++i) {
-            file << "  3;";
+            file << "    3;";
             for (int j = 0; j < 3; ++j) {
                 uint16_t a = indexBufferData[BaseVertexIndex + MinIndex + index + j];
                 UINT actualIndex = indexMap[a];
@@ -188,13 +193,14 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
             index += 3;
         }
 
+        file << "  }" << std::endl;
         file << "}" << std::endl;
         file.close();
 
         indexBuffer->Unlock();
         indexBuffer->Release();
-        vertexBuffer->Unlock();
         vertexBuffer->Release();
+        vertexBuffer->Unlock();
 
         ++count;
     }
