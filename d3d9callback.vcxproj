@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Context.h" />
+    <ClInclude Include="D3D9Util.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Main.h" />
   </ItemGroup>
