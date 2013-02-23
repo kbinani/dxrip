@@ -153,18 +153,20 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
             }
         }
 
-        std::ostringstream stream;
+        static std::ofstream file;
         if (lastSceneCount != context->sceneCount) {
             count = 0;
+
+            if (file.is_open()) file.close();
+            std::ostringstream stream;
+            stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << context->sceneCount << ".x";
+            std::string filePath = stream.str();
+            file.open(filePath);
+            file << "xof 0302txt 0064" << std::endl;
         }
         lastSceneCount = context->sceneCount;
-        stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << context->sceneCount << "_" << count << ".x";
-        std::string filePath = stream.str();
 
-        std::ofstream file;
-        file.open(filePath);
-        file << "xof 0302txt 0064" << std::endl;
-        file << "Frame Frame_" << context->sceneCount << "_" << count << " {" << std::endl;
+        file << "Frame Frame_" << count << " {" << std::endl;
         file << "  Mesh {" << std::endl;
         file << "    " << vertexList.size() << ";" << std::endl;
         file.setf(std::ios_base::fixed, std::ios_base::floatfield);
@@ -195,7 +197,6 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
 
         file << "  }" << std::endl;
         file << "}" << std::endl;
-        file.close();
 
         indexBuffer->Unlock();
         indexBuffer->Release();
