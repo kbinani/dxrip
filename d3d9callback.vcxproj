@@ -59,12 +59,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(D3D9InterceptorIncludePath);$(D3D9InterceptorIncludePath)D3D9Wrapper;$(DirectXSDKIncludePath);$(LuaIncludePath)</IncludePath>
-    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(DirectXSDKLibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(D3D9InterceptorIncludePath);$(D3D9InterceptorIncludePath)D3D9Wrapper;$(DirectXSDKIncludePath);$(LuaIncludePath)</IncludePath>
-    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(DirectXSDKLibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -79,7 +79,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;lua52.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;lua52.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -99,7 +99,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;lua52.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;lua52.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
