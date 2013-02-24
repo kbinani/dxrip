@@ -16,6 +16,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Environment.props">
@@ -28,6 +29,8 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshDescriptor.h" />
+    <ClInclude Include="MeshRepository.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{58C6CA64-39D8-40C1-98E3-816A902971E0}</ProjectGuid>
