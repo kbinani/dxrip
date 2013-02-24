@@ -1,30 +1,24 @@
 ﻿#pragma once
 
 #include "Mesh.h"
+#include "MeshDescriptor.h"
 
 namespace com { namespace github { namespace kbinani {
 
-    Mesh::Mesh() {
-        Init();
-    }
-
-    void Mesh::Init() {
+    Mesh::Mesh(const MeshDescriptor &descriptor) {
         index.clear();
         vertexList.clear();
-    }
+        isValid = false;
+        lastError = "";
 
-    int Mesh::FromIndexedPrimitive(
-            Mesh &result,
-            LPDIRECT3DDEVICE9 device,
-            D3DPRIMITIVETYPE primitiveType,
-            INT baseVertexIndex,
-            UINT startIndex,
-            UINT primitiveCount)
-    {
-        result.Init();
+        LPDIRECT3DDEVICE9 device = descriptor.Device();
+        D3DPRIMITIVETYPE primitiveType = descriptor.Type();
+        UINT primitiveCount = descriptor.VertexIndexCount() / 3;
+        UINT vertexIndexOffset = descriptor.VertexIndexOffset();
 
         if (primitiveType != D3DPT_TRIANGLELIST) {
-            return 1;
+            lastError = "primitive type is not D3DPT_TRIANGLELIST";
+            return;
         }
 
         DWORD vertexFormat;
@@ -33,23 +27,27 @@ namespace com { namespace github { namespace kbinani {
         // index buffer
         D3D9Base::IDirect3DIndexBuffer9 *indexBuffer = NULL;
         if (device->GetIndices(&indexBuffer) != D3D_OK) {
-            return 1;
+            lastError = "IDirect3DDevice9::GetIndices failed";
+            return;
         }
 
         D3D9Base::D3DINDEXBUFFER_DESC indexBufferDesciption;
         if (indexBuffer->GetDesc(&indexBufferDesciption) != D3D_OK) {
             indexBuffer->Release();
-            return 1;
+            lastError = "IDirect3DIndexBuffer9::GetDesc failed";
+            return;
         }
         if (D3DFMT_INDEX16 != indexBufferDesciption.Format) {
             indexBuffer->Release();
-            return 1;
+            lastError = "index format is not D3DFMT_INDEX16";
+            return;
         }
 
         uint16_t *indexBufferData = NULL;
         if (indexBuffer->Lock(0, 0, (void **)&indexBufferData, D3DLOCK_READONLY) != D3D_OK) {
             indexBuffer->Release();
-            return 1;
+            lastError = "IDirect3DIndexBuffer9::Lock failed";
+            return;
         }
 
         // vertex buffer
@@ -58,7 +56,8 @@ namespace com { namespace github { namespace kbinani {
         if (device->GetStreamSource(0, &vertexBuffer, &offsetInBytes, &stride) != D3D_OK) {
             indexBuffer->Unlock();
             indexBuffer->Release();
-            return 1;
+            lastError = "IDirect3DDevice9::GetStreamSource failed";
+            return;
         }
 
         D3D9Base::D3DVERTEXBUFFER_DESC vertexBufferDescription;
@@ -66,7 +65,8 @@ namespace com { namespace github { namespace kbinani {
             indexBuffer->Unlock();
             indexBuffer->Release();
             vertexBuffer->Release();
-            return 1;
+            lastError = "IDirect3DVertexBuffer9::GetDesc failed";
+            return;
         }
         
         void *vertexBufferData = NULL;
@@ -74,23 +74,24 @@ namespace com { namespace github { namespace kbinani {
             indexBuffer->Unlock();
             indexBuffer->Release();
             vertexBuffer->Release();
-            return 1;
+            lastError = "IDirect3DVertexBuffer9::Lock failed";
+            return;
         }
 
         std::vector<uint16_t> indexMap;
         for (UINT i = 0; i < primitiveCount * 3; ++i) {
-            uint16_t a = indexBufferData[baseVertexIndex + startIndex + i];
-            std::vector<uint16_t>::iterator index = std::find(indexMap.begin(), indexMap.end(), a);
-            if (index == indexMap.end()) {
+            uint16_t a = indexBufferData[vertexIndexOffset + i];
+            std::vector<uint16_t>::iterator it = std::find(indexMap.begin(), indexMap.end(), a);
+            if (it == indexMap.end()) {
                 indexMap.push_back(a);
                 void *vertexInfo = (void *)((uint8_t *)vertexBufferData + stride * a);
                 float x = ((float *)vertexInfo)[0];
                 float y = ((float *)vertexInfo)[1];
                 float z = ((float *)vertexInfo)[2];
-                result.vertexList.push_back(Vec3f(x, y, z));
-                result.index.push_back((uint16_t)(indexMap.size() - 1));
+                vertexList.push_back(Vec3f(x, y, z));
+                index.push_back((uint16_t)(indexMap.size() - 1));
             } else {
-                result.index.push_back((uint16_t)std::distance(indexMap.begin(), index));
+                index.push_back((uint16_t)std::distance(indexMap.begin(), it));
             }
         }
 
@@ -99,7 +100,7 @@ namespace com { namespace github { namespace kbinani {
         vertexBuffer->Unlock();
         vertexBuffer->Release();
 
-        return OK;
+        isValid = true;
     }
 
     void Mesh::WriteFrame(std::ostream &stream, const std::string &frameName) {
@@ -131,6 +132,14 @@ namespace com { namespace github { namespace kbinani {
 
         stream << "  }" << std::endl;
         stream << "}" << std::endl;
+    }
+
+    bool Mesh::IsValid() const {
+        return isValid;
+    }
+
+    std::string Mesh::GetLastError() const {
+        return lastError;
     }
 
 } } }
