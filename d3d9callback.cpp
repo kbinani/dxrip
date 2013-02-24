@@ -29,6 +29,7 @@ D3D9CALLBACK_API void ReportSetTexture(DWORD Stage, HANDLE *SurfaceHandles, UINT
 
 D3D9CALLBACK_API void ReportSetViewport(CONST D3DVIEWPORT9 *pViewport) {}
 D3D9CALLBACK_API void ReportSetTransform(D3DTRANSFORMSTATETYPE State, CONST D3DMATRIX* pMatrix) {}
+D3D9CALLBACK_API void ReportMultiplyTransform(D3DTRANSFORMSTATETYPE a, CONST D3DMATRIX *b) {}
 
 D3D9CALLBACK_API void ReportSetVertexDeclaration(D3DVERTEXELEMENT9 *Elements, UINT ElementCount) {}
 D3D9CALLBACK_API void ReportSetFVF(DWORD FVF) {}
