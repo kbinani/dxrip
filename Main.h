@@ -45,3 +45,5 @@ extern "C" {
 #include <fstream>
 #include <map>
 #include <vector>
+#include <clx/sha1.h>
+#include "Mesh.h"

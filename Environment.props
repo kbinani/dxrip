@@ -11,6 +11,7 @@
     <DirectXSDKLibraryPath>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86</DirectXSDKLibraryPath>
     <LuaIncludePath>D:\Installer\lua-5.2.1\src</LuaIncludePath>
     <LuaLibraryPath>D:\Installer\lua-5.2.1\Release</LuaLibraryPath>
+    <ClxIncludePath>D:\Installer\clx_0.18.2</ClxIncludePath>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
