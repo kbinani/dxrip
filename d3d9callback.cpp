@@ -1,6 +1,8 @@
 #include "Main.h"
 #include "d3d9Callback.h"
 #include "Context.h"
+#include "MeshDescriptor.h"
+#include "MeshRepository.h"
 
 using namespace com::github::kbinani;
 
@@ -79,27 +81,32 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         static int count = 0;
         static int lastSceneCount = -1;
 
-        com::github::kbinani::Mesh mesh;
-        com::github::kbinani::Mesh::FromIndexedPrimitive(
-            mesh,
-            device, PrimitiveType, BaseVertexIndex, StartIndex, PrimitiveCount);
+        MeshDescriptor meshDesc(device, PrimitiveType, BaseVertexIndex + StartIndex, PrimitiveCount * 3);
 
-        static std::ofstream file;
+        MeshRepository *repository = MeshRepository::Instance();
+        if (!repository->Exists(meshDesc)) {
+            com::github::kbinani::Mesh mesh(meshDesc);
+            if (mesh.IsValid()) {
+                std::ostringstream filePath;
+                filePath << "C:\\ProgramData\\Temp\\d3d9callback\\" << meshDesc.Hash() << ".x";
+
+                std::ostringstream frameName;
+                frameName << "Frame_" << meshDesc.Hash();
+
+                std::ofstream file(filePath.str());
+                file << "xof 0302txt 0064" << std::endl;
+                mesh.WriteFrame(file, frameName.str());
+                file.close();
+            } else {
+                overlay->WriteLine(String(mesh.GetLastError().c_str()), RGBColor(0, 0, 0), 0);
+            }
+            repository->Register(meshDesc);
+        }
+
         if (lastSceneCount != context->sceneCount) {
             count = 0;
-
-            if (file.is_open()) file.close();
-            std::ostringstream stream;
-            stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << context->sceneCount << ".x";
-            std::string filePath = stream.str();
-            file.open(filePath);
-            file << "xof 0302txt 0064" << std::endl;
         }
         lastSceneCount = context->sceneCount;
-
-        std::ostringstream frameName;
-        frameName << "Frame_" << std::setfill('0') << std::setw(8) << std::right << count << std::setiosflags(std::ios_base::floatfield);
-        mesh.WriteFrame(file, frameName.str());
 
         ++count;
     }
