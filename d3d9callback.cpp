@@ -3,6 +3,7 @@
 #include "Context.h"
 #include "MeshDescriptor.h"
 #include "MeshRepository.h"
+#include <sys/stat.h>
 
 using namespace com::github::kbinani;
 
@@ -95,14 +96,16 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
 
                 std::ostringstream filePath;
                 filePath << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << contentsHash << ".x";
+                struct stat st;
+                if (::stat(filePath.str().c_str(), &st) != 0) {
+                    std::ostringstream frameName;
+                    frameName << "Frame_" << contentsHash;
 
-                std::ostringstream frameName;
-                frameName << "Frame_" << contentsHash;
-
-                std::ofstream file(filePath.str());
-                file << "xof 0302txt 0064" << std::endl;
-                mesh.WriteFrame(file, frameName.str());
-                file.close();
+                    std::ofstream file(filePath.str());
+                    file << "xof 0302txt 0064" << std::endl;
+                    mesh.WriteFrame(file, frameName.str());
+                    file.close();
+                }
             } else {
                 overlay->WriteLine(String(mesh.GetLastError().c_str()), RGBColor(0, 0, 0), 0);
             }
