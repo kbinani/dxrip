@@ -145,12 +145,16 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         }
 
         std::map<uint16_t, UINT> indexMap;
-        std::vector<void *> vertexList;
+        std::vector<Vec3f> vertexList;
         for (UINT i = 0; i < PrimitiveCount * 3; ++i) {
             uint16_t a = indexBufferData[BaseVertexIndex + MinIndex + i];
             if (indexMap.find(a) == indexMap.end()) {
                 indexMap.insert(std::make_pair(a, indexMap.size()));
-                vertexList.push_back((void *)((uint8_t *)vertexBufferData + stride * a));
+                void *vertexInfo = (void *)((uint8_t *)vertexBufferData + stride * a);
+                float x = ((float *)vertexInfo)[0];
+                float y = ((float *)vertexInfo)[1];
+                float z = ((float *)vertexInfo)[2];
+                vertexList.push_back(Vec3f(x, y, z));
             }
         }
 
@@ -174,11 +178,8 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         file << std::setprecision(8);
 
         for (int i = 0; i < vertexList.size(); ++i) {
-            void *vertexInfo = vertexList[i];
-            float x = ((float *)vertexInfo)[0];
-            float y = ((float *)vertexInfo)[1];
-            float z = ((float *)vertexInfo)[2];
-            file << "    " << x << ";" << y << ";" << z << ";" << (i == vertexList.size() - 1 ? ";" : ",") << std::endl;
+            Vec3f vertex = vertexList[i];
+            file << "    " << vertex.x << ";" << vertex.y << ";" << vertex.z << ";" << (i == vertexList.size() - 1 ? ";" : ",") << std::endl;
         }
 
         file << std::endl;
