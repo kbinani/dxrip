@@ -79,7 +79,6 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
     D3D9Base::IDirect3DDevice9 *device = context->device;
     ID3D9DeviceOverlay *overlay = context->screenOverlay;
     if (PrimitiveType == D3D9Base::D3DPT_TRIANGLELIST) {
-        static int count = 0;
         static int lastSceneCount = -1;
 
         MeshDescriptor meshDesc(device, PrimitiveType, BaseVertexIndex + StartIndex, PrimitiveCount * 3);
@@ -105,18 +104,21 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
                     file << "xof 0302txt 0064" << std::endl;
                     mesh.WriteFrame(file, frameName.str());
                     file.close();
+
+                    overlay->WriteLine(String(contentsHash.c_str()), RGBColor(0, 0, 0, 128), 0);
                 }
             } else {
                 overlay->WriteLine(String(mesh.GetLastError().c_str()), RGBColor(0, 0, 0), 0);
             }
         }
 
+        static std::ofstream file("C:\\ProgramData\\Temp\\d3d9callback\\scene_object_list.txt", std::ios_base::app);
         if (lastSceneCount != context->sceneCount) {
-            count = 0;
+            file << "[" << context->sceneCount << "]" << std::endl;
         }
         lastSceneCount = context->sceneCount;
 
-        ++count;
+        file << repository->GetContentsHash(meshDesc) << std::endl;
     }
     return true;
 }

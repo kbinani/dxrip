@@ -13,8 +13,13 @@ namespace com { namespace github { namespace kbinani {
         }
     }
 
-    bool MeshRepository::Exists(const MeshDescriptor &descriptor) {
+    bool MeshRepository::Exists(const MeshDescriptor &descriptor) const {
         return repository.find(descriptor.Hash()) != repository.end();
+    }
+
+    std::string MeshRepository::GetContentsHash(const MeshDescriptor &descriptor) const {
+        std::pair<MeshDescriptor, std::string> value = repository.at(descriptor.Hash());
+        return value.second;
     }
 
 } } }
