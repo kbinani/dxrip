@@ -8,12 +8,12 @@ namespace com { namespace github { namespace kbinani {
     public:
         static MeshRepository *Instance();
 
-        void Register(const MeshDescriptor &descriptor);
+        void Register(const MeshDescriptor &descriptor, const std::string &contentsHash);
 
         bool Exists(const MeshDescriptor &descriptor);
 
     private:
-        std::map<std::string, MeshDescriptor> repository;
+        std::map<std::string, std::pair<MeshDescriptor, std::string> > repository;
     };
 
 } } }

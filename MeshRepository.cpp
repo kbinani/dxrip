@@ -7,9 +7,9 @@ namespace com { namespace github { namespace kbinani {
         return &instance;
     }
 
-    void MeshRepository::Register(const MeshDescriptor &descriptor) {
+    void MeshRepository::Register(const MeshDescriptor &descriptor, const std::string &contentsHash) {
         if (!Exists(descriptor)) {
-            repository.insert(std::make_pair(descriptor.Hash(), descriptor));
+            repository.insert(std::make_pair(descriptor.Hash(), std::make_pair(descriptor, contentsHash)));
         }
     }
 

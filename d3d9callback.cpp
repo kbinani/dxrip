@@ -87,11 +87,17 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         if (!repository->Exists(meshDesc)) {
             com::github::kbinani::Mesh mesh(meshDesc);
             if (mesh.IsValid()) {
+                std::ostringstream fileContents;
+                mesh.WriteFrame(fileContents);
+                clx::sha1 encoder;
+                std::string contentsHash = encoder.encode(fileContents.str()).to_string();
+                repository->Register(meshDesc, contentsHash);
+
                 std::ostringstream filePath;
-                filePath << "C:\\ProgramData\\Temp\\d3d9callback\\" << meshDesc.Hash() << ".x";
+                filePath << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << contentsHash << ".x";
 
                 std::ostringstream frameName;
-                frameName << "Frame_" << meshDesc.Hash();
+                frameName << "Frame_" << contentsHash;
 
                 std::ofstream file(filePath.str());
                 file << "xof 0302txt 0064" << std::endl;
@@ -100,7 +106,6 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
             } else {
                 overlay->WriteLine(String(mesh.GetLastError().c_str()), RGBColor(0, 0, 0), 0);
             }
-            repository->Register(meshDesc);
         }
 
         if (lastSceneCount != context->sceneCount) {
