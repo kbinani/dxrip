@@ -41,3 +41,4 @@ using namespace D3D9Base;
 extern "C" {
     #include "lua.h"
 }
+#include <stdint.h>
