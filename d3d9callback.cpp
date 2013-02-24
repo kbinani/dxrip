@@ -171,7 +171,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         }
         lastSceneCount = context->sceneCount;
 
-        file << "Frame Frame_" << count << " {" << std::endl;
+        file << "Frame Frame_" << std::setfill('0') << std::setw(8) << std::right << count << std::setiosflags(std::ios_base::floatfield) << " {" << std::endl;
         file << "  Mesh {" << std::endl;
         file << "    " << vertexList.size() << ";" << std::endl;
         file.setf(std::ios_base::fixed, std::ios_base::floatfield);
