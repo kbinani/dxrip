@@ -3,6 +3,8 @@
 #include "Context.h"
 #include "MeshDescriptor.h"
 #include "MeshRepository.h"
+#include "TextureDescriptor.h"
+#include "TextureRepository.h"
 #include <sys/stat.h>
 
 using namespace com::github::kbinani;
@@ -80,6 +82,29 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
     ID3D9DeviceOverlay *overlay = context->screenOverlay;
     if (PrimitiveType == D3D9Base::D3DPT_TRIANGLELIST) {
         static int lastSceneCount = -1;
+        std::string baseDirectory = "C:\\ProgramData\\Temp\\d3d9callback_mesh\\";
+
+        D3D9Base::IDirect3DBaseTexture9 *texture;
+        if (device->GetTexture(0, &texture) != D3D_OK) {
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; GetTexture failed"), RGBColor(0, 0, 0), 0);
+            return true;
+        }
+        TextureDescriptor textureDesc(device, texture);
+
+        TextureRepository *textureRepository = TextureRepository::Instance();
+        std::string textureFile;
+        if (!textureRepository->Exists(textureDesc)) {
+            std::string tempFilePath = baseDirectory + "temp.png";
+            std::string contentsHash = textureDesc.Save(tempFilePath);
+            textureRepository->Register(textureDesc, contentsHash);
+            std::ostringstream textureFilePath;
+            textureFile = contentsHash + ".png";
+            textureFilePath << baseDirectory << textureFile;
+            ::rename(tempFilePath.c_str(), textureFilePath.str().c_str());
+            overlay->WriteLine(String("[T] ") + String(contentsHash.c_str()), RGBColor(255, 0, 0, 64), 0);
+        } else {
+            textureFile = textureRepository->GetContentsHash(textureDesc) + ".png";
+        }
 
         MeshDescriptor meshDesc(device, PrimitiveType, BaseVertexIndex + StartIndex, PrimitiveCount * 3);
 
@@ -88,13 +113,13 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
             com::github::kbinani::Mesh mesh(meshDesc);
             if (mesh.IsValid()) {
                 std::ostringstream fileContents;
-                mesh.WriteFrame(fileContents);
+                mesh.WriteFrame(fileContents, textureFile);
                 clx::sha1 encoder;
                 std::string contentsHash = encoder.encode(fileContents.str()).to_string();
                 repository->Register(meshDesc, contentsHash);
 
                 std::ostringstream filePath;
-                filePath << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << contentsHash << ".x";
+                filePath << baseDirectory << contentsHash << ".x";
                 struct stat st;
                 if (::stat(filePath.str().c_str(), &st) != 0) {
                     std::ostringstream frameName;
@@ -102,23 +127,28 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
 
                     std::ofstream file(filePath.str());
                     file << "xof 0302txt 0064" << std::endl;
-                    mesh.WriteFrame(file, frameName.str());
+                    mesh.WriteFrame(file, textureFile, frameName.str());
                     file.close();
 
-                    overlay->WriteLine(String(contentsHash.c_str()), RGBColor(0, 0, 0, 128), 0);
+                    overlay->WriteLine(String("[M] ") + String(contentsHash.c_str()), RGBColor(0, 0, 0, 64), 0);
                 }
             } else {
-                overlay->WriteLine(String(mesh.GetLastError().c_str()), RGBColor(0, 0, 0), 0);
+                overlay->WriteLine(String(mesh.GetLastError().c_str()), RGBColor(0, 0, 0, 255), 0);
             }
         }
 
-        static std::ofstream file("C:\\ProgramData\\Temp\\d3d9callback\\scene_object_list.txt", std::ios_base::app);
+        static std::ofstream file;
+        if (!file.is_open()) {
+            file.open("C:\\ProgramData\\Temp\\d3d9callback\\scene_object_list.txt", std::ios_base::app);
+        }
         if (lastSceneCount != context->sceneCount) {
             file << "[" << context->sceneCount << "]" << std::endl;
         }
         lastSceneCount = context->sceneCount;
 
-        file << repository->GetContentsHash(meshDesc) << std::endl;
+        if (repository->Exists(meshDesc)) {
+            file << repository->GetContentsHash(meshDesc) << std::endl;
+        }
     }
     return true;
 }

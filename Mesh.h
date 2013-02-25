@@ -13,7 +13,7 @@ namespace com { namespace github { namespace kbinani {
         /**
          * Write frame data to stream, as X file format.
          */
-        void WriteFrame(std::ostream &stream, const std::string &frameName = "Frame");
+        void WriteFrame(std::ostream &stream, const std::string &textureFileName, const std::string &frameName = "Frame");
 
         bool IsValid() const;
 
@@ -21,6 +21,7 @@ namespace com { namespace github { namespace kbinani {
 
     private:
         std::vector<Vec3f> vertexList;
+        std::vector<Vec2f> textureCoordList;
         std::vector<uint16_t> index;
         bool isValid;
         std::string lastError;
