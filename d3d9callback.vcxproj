@@ -31,6 +31,8 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshDescriptor.h" />
     <ClInclude Include="MeshRepository.h" />
+    <ClInclude Include="TextureDescriptor.h" />
+    <ClInclude Include="TextureRepository.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{58C6CA64-39D8-40C1-98E3-816A902971E0}</ProjectGuid>
@@ -92,11 +94,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;D3DCALLBACK_EXPORTS;NDEBUG;_WINDOWS;_USRDLL;D3D9CALLBACK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
