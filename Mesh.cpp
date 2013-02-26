@@ -144,33 +144,33 @@ namespace com { namespace github { namespace kbinani {
             stream << (i < primitiveCount - 1 ? "," : ";") << std::endl;
             indexCount += 3;
         }
-        stream << "  }" << std::endl;
 
-        stream << "  MeshTextureCoords {" << std::endl;
-        stream << "    " << textureCoordList.size() << ";" << std::endl;
+        stream << "    MeshTextureCoords {" << std::endl;
+        stream << "      " << textureCoordList.size() << ";" << std::endl;
         for (int i = 0; i < textureCoordList.size(); ++i) {
             Vec2f uv = textureCoordList[i];
-            stream << "    " << uv.x << ";" << uv.y << ";" << (i == textureCoordList.size() - 1 ? ";" : ",") << std::endl;
+            stream << "      " << uv.x << ";" << uv.y << ";" << (i == textureCoordList.size() - 1 ? ";" : ",") << std::endl;
         }
-        stream << "  }" << std::endl;
+        stream << "    }" << std::endl;
 
-        stream << "  MeshMaterialList {" << std::endl;
-        stream << "    1;" << std::endl;
-        stream << "    " << primitiveCount << ";" << std::endl;
+        stream << "    MeshMaterialList {" << std::endl;
+        stream << "      1;" << std::endl;
+        stream << "      " << primitiveCount << ";" << std::endl;
         for (int i = 0; i < primitiveCount; ++i) {
-            stream << "    0" << (i == primitiveCount - 1 ? ";" : ",") << std::endl;
+            stream << "      0" << (i == primitiveCount - 1 ? ";" : ",") << std::endl;
         }
-        stream << "    Material {" << std::endl;
-        stream << "      1.0;1.0;1.0;0.0;;" << std::endl;
-        stream << "      0.000000;" << std::endl;
-        stream << "      0.000000;0.000000;0.000000;;" << std::endl;
-        stream << "      0.000000;0.000000;0.000000;;" << std::endl;
-        stream << "      TextureFilename {" << std::endl;
-        stream << "        \"" << textureFileName << "\";" << std::endl;
+        stream << "      Material {" << std::endl;
+        stream << "        1.0;1.0;1.0;0.0;;" << std::endl;
+        stream << "        0.000000;" << std::endl;
+        stream << "        0.000000;0.000000;0.000000;;" << std::endl;
+        stream << "        0.000000;0.000000;0.000000;;" << std::endl;
+        stream << "        TextureFilename {" << std::endl;
+        stream << "          \"" << textureFileName << "\";" << std::endl;
+        stream << "        }" << std::endl;
         stream << "      }" << std::endl;
         stream << "    }" << std::endl;
-        stream << "  }" << std::endl;
 
+        stream << "  }" << std::endl;
         stream << "}" << std::endl;
     }
 
