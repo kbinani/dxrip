@@ -1,4 +1,4 @@
-#include "Main.h"
+﻿#include "Main.h"
 #include "d3d9Callback.h"
 #include "Context.h"
 #include "MeshDescriptor.h"
@@ -109,6 +109,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         MeshDescriptor meshDesc(device, PrimitiveType, BaseVertexIndex + StartIndex, PrimitiveCount * 3);
 
         MeshRepository *repository = MeshRepository::Instance();
+        std::string meshFile;
         if (!repository->Exists(meshDesc)) {
             com::github::kbinani::Mesh mesh(meshDesc);
             if (mesh.IsValid()) {
@@ -132,23 +133,51 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
 
                     overlay->WriteLine(String("[M] ") + String(contentsHash.c_str()), RGBColor(0, 0, 0, 64), 0);
                 }
+                meshFile = contentsHash + ".x";
             } else {
                 overlay->WriteLine(String(mesh.GetLastError().c_str()), RGBColor(0, 0, 0, 255), 0);
             }
+        } else {
+            meshFile = repository->GetContentsHash(meshDesc) + ".x";
         }
 
-        static std::ofstream file;
-        if (!file.is_open()) {
-            file.open("C:\\ProgramData\\Temp\\d3d9callback\\scene_object_list.txt", std::ios_base::app);
+        std::string directory;
+        {
+            std::ostringstream stream;
+            stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << context->sceneCount;
+            directory = stream.str();
         }
         if (lastSceneCount != context->sceneCount) {
-            file << "[" << context->sceneCount << "]" << std::endl;
+            CreateDirectory(directory.c_str(), NULL);
         }
-        lastSceneCount = context->sceneCount;
+        std::string linkMeshPath;
+        {
+            std::ostringstream stream;
+            stream << directory << "\\" << meshFile;
+            linkMeshPath = stream.str();
+        }
+        std::string targetMeshPath;
+        {
+            std::ostringstream stream;
+            stream << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << meshFile;
+            targetMeshPath = stream.str();
+        }
+        CreateSymbolicLink(linkMeshPath.c_str(), targetMeshPath.c_str(), 0);
 
-        if (repository->Exists(meshDesc)) {
-            file << repository->GetContentsHash(meshDesc) << std::endl;
+        std::string linkTexturePath;
+        {
+            std::ostringstream stream;
+            stream << directory << "\\" << textureFile;
+            linkTexturePath = stream.str();
         }
+        std::string targetTexturePath;
+        {
+            std::ostringstream stream;
+            stream << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << textureFile;
+            targetTexturePath = stream.str();
+        }
+        CreateSymbolicLink(linkTexturePath.c_str(), targetTexturePath.c_str(), 0);
+        lastSceneCount = context->sceneCount;
     }
     return true;
 }
