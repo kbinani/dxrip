@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Main.h"
+#include "MeshDescriptor.h"
 
 namespace com { namespace github { namespace kbinani {
 
@@ -8,26 +9,22 @@ namespace com { namespace github { namespace kbinani {
     public:
         static const int OK = 0;
 
-        static int FromIndexedPrimitive(
-            Mesh &result,
-            LPDIRECT3DDEVICE9 device,
-            D3DPRIMITIVETYPE primitiveType,
-            INT BaseVertexIndex,
-            UINT startIndex,
-            UINT primitiveCount);
-
-        Mesh();
+        explicit Mesh(const MeshDescriptor &descriptor);
         /**
          * Write frame data to stream, as X file format.
          */
-        void WriteFrame(std::ostream &stream, const std::string &frameName = "Frame");
+        void WriteFrame(std::ostream &stream, const std::string &textureFileName, const std::string &frameName = "Frame");
 
-    private:
-        void Init();
+        bool IsValid() const;
+
+        std::string GetLastError() const;
 
     private:
         std::vector<Vec3f> vertexList;
+        std::vector<Vec2f> textureCoordList;
         std::vector<uint16_t> index;
+        bool isValid;
+        std::string lastError;
     };
 
 } } }

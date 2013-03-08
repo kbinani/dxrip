@@ -1,6 +1,11 @@
-#include "Main.h"
+﻿#include "Main.h"
 #include "d3d9Callback.h"
 #include "Context.h"
+#include "MeshDescriptor.h"
+#include "MeshRepository.h"
+#include "TextureDescriptor.h"
+#include "TextureRepository.h"
+#include <sys/stat.h>
 
 using namespace com::github::kbinani;
 
@@ -29,6 +34,7 @@ D3D9CALLBACK_API void ReportSetTexture(DWORD Stage, HANDLE *SurfaceHandles, UINT
 
 D3D9CALLBACK_API void ReportSetViewport(CONST D3DVIEWPORT9 *pViewport) {}
 D3D9CALLBACK_API void ReportSetTransform(D3DTRANSFORMSTATETYPE State, CONST D3DMATRIX* pMatrix) {}
+D3D9CALLBACK_API void ReportMultiplyTransform(D3DTRANSFORMSTATETYPE a, CONST D3DMATRIX *b) {}
 
 D3D9CALLBACK_API void ReportSetVertexDeclaration(D3DVERTEXELEMENT9 *Elements, UINT ElementCount) {}
 D3D9CALLBACK_API void ReportSetFVF(DWORD FVF) {}
@@ -63,7 +69,116 @@ D3D9CALLBACK_API void ReportSetRenderTarget(DWORD RenderTargetIndex, HANDLE Surf
 D3D9CALLBACK_API bool ReportDrawPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount) {
     return true;
 }
-D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(D3DPRIMITIVETYPE PrimitiveType, INT BaseVertexIndex, UINT MinIndex, UINT NumVertices, UINT StartIndex, UINT PrimitiveCount) {
+D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
+    D3DPRIMITIVETYPE PrimitiveType,
+    INT BaseVertexIndex,
+    UINT MinIndex,
+    UINT NumVertices,
+    UINT StartIndex,
+    UINT PrimitiveCount
+) {
+    Context *context = Context::Instance();
+    D3D9Base::IDirect3DDevice9 *device = context->device;
+    ID3D9DeviceOverlay *overlay = context->screenOverlay;
+    if (PrimitiveType == D3D9Base::D3DPT_TRIANGLELIST) {
+        static int lastSceneCount = -1;
+        std::string baseDirectory = "C:\\ProgramData\\Temp\\d3d9callback_mesh\\";
+
+        D3D9Base::IDirect3DBaseTexture9 *texture;
+        if (device->GetTexture(0, &texture) != D3D_OK) {
+            overlay->WriteLine(String("ReportDrawIndexedPrimitive; GetTexture failed"), RGBColor(0, 0, 0), 0);
+            return true;
+        }
+        TextureDescriptor textureDesc(device, texture);
+
+        TextureRepository *textureRepository = TextureRepository::Instance();
+        std::string textureFile;
+        if (!textureRepository->Exists(textureDesc)) {
+            std::string tempFilePath = baseDirectory + "temp.png";
+            std::string contentsHash = textureDesc.Save(tempFilePath);
+            textureRepository->Register(textureDesc, contentsHash);
+            std::ostringstream textureFilePath;
+            textureFile = contentsHash + ".png";
+            textureFilePath << baseDirectory << textureFile;
+            ::rename(tempFilePath.c_str(), textureFilePath.str().c_str());
+            overlay->WriteLine(String("[T] ") + String(contentsHash.c_str()), RGBColor(255, 0, 0, 64), 0);
+        } else {
+            textureFile = textureRepository->GetContentsHash(textureDesc) + ".png";
+        }
+
+        MeshDescriptor meshDesc(device, PrimitiveType, BaseVertexIndex + StartIndex, PrimitiveCount * 3);
+
+        MeshRepository *repository = MeshRepository::Instance();
+        std::string meshFile;
+        if (!repository->Exists(meshDesc)) {
+            com::github::kbinani::Mesh mesh(meshDesc);
+            if (mesh.IsValid()) {
+                std::ostringstream fileContents;
+                mesh.WriteFrame(fileContents, textureFile);
+                clx::sha1 encoder;
+                std::string contentsHash = encoder.encode(fileContents.str()).to_string();
+                repository->Register(meshDesc, contentsHash);
+
+                std::ostringstream filePath;
+                filePath << baseDirectory << contentsHash << ".x";
+                struct stat st;
+                if (::stat(filePath.str().c_str(), &st) != 0) {
+                    std::ostringstream frameName;
+                    frameName << "Frame_" << contentsHash;
+
+                    std::ofstream file(filePath.str());
+                    file << "xof 0302txt 0064" << std::endl;
+                    mesh.WriteFrame(file, textureFile, frameName.str());
+                    file.close();
+
+                    overlay->WriteLine(String("[M] ") + String(contentsHash.c_str()), RGBColor(0, 0, 0, 64), 0);
+                }
+                meshFile = contentsHash + ".x";
+            } else {
+                overlay->WriteLine(String(mesh.GetLastError().c_str()), RGBColor(0, 0, 0, 255), 0);
+            }
+        } else {
+            meshFile = repository->GetContentsHash(meshDesc) + ".x";
+        }
+
+        std::string directory;
+        {
+            std::ostringstream stream;
+            stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << context->sceneCount;
+            directory = stream.str();
+        }
+        if (lastSceneCount != context->sceneCount) {
+            CreateDirectory(directory.c_str(), NULL);
+        }
+        std::string linkMeshPath;
+        {
+            std::ostringstream stream;
+            stream << directory << "\\" << meshFile;
+            linkMeshPath = stream.str();
+        }
+        std::string targetMeshPath;
+        {
+            std::ostringstream stream;
+            stream << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << meshFile;
+            targetMeshPath = stream.str();
+        }
+        CreateSymbolicLink(linkMeshPath.c_str(), targetMeshPath.c_str(), 0);
+
+        std::string linkTexturePath;
+        {
+            std::ostringstream stream;
+            stream << directory << "\\" << textureFile;
+            linkTexturePath = stream.str();
+        }
+        std::string targetTexturePath;
+        {
+            std::ostringstream stream;
+            stream << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << textureFile;
+            targetTexturePath = stream.str();
+        }
+        CreateSymbolicLink(linkTexturePath.c_str(), targetTexturePath.c_str(), 0);
+        lastSceneCount = context->sceneCount;
+    }
     return true;
 }
 D3D9CALLBACK_API bool ReportDrawPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType, UINT PrimitiveCount, CONST void* pVertexStreamZeroData, UINT VertexStreamZeroStride) {
