@@ -1,8 +1,8 @@
-Debug/*
-Release/*
+callback/Debug/*
+callback/Release/*
 *.opensdf
 *.sdf
 *.suo
 *.vcxproj.filters
 *.vcxproj.user
-ipch/*
+callback/ipch/*
