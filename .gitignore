@@ -6,3 +6,4 @@ callback/Release/*
 *.vcxproj.filters
 *.vcxproj.user
 callback/ipch/*
+*/__pycache__/*
