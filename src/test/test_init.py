@@ -1,5 +1,6 @@
 import unittest
 import dxrip
+import xmlrunner
 
 class TestInit(unittest.TestCase):
     def setUp(self):
@@ -14,3 +15,6 @@ class TestInit(unittest.TestCase):
             self.fail("unexpected exception was raised")
         else:
             self.fail("expected exception was not raised")
+
+if __name__ == '__main__':
+    unittest.main(testRunner = xmlrunner.XMLTestRunner(output = 'test/report'))
