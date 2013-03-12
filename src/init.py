@@ -12,3 +12,9 @@ class Init:
             raise dxrip.Error([])
         if not os.path.isfile(target):
             raise dxrip.Error(["error: file \"hogehoge\" does not exists"])
+
+        directory = os.path.dirname(target)
+        repository = os.path.join(directory, '.dxrip')
+        if os.path.isdir(repository):
+            raise dxrip.Error(['error: ".dxrip" directory already exists'])
+        os.mkdir(repository)
