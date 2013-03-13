@@ -29,7 +29,7 @@ using namespace std;
 namespace D3D9Base
 {
 #include <d3d9.h>
-#include <dXErr9.h>
+#include <dXErr.h>
 #ifdef USE_D3DX
 #include <d3dx9.h>
 #endif
