@@ -9,7 +9,7 @@ Main.h is included by all source files and includes every header file in the cor
 //
 // Config.h includes a series of #defines used to control compiling options
 //
-#include "Config.h"
+#include "common/Config.h"
 
 //
 // Engine.h includes everything that rarely changes between applications, such as vector/Matrix4 libraries,
@@ -36,7 +36,7 @@ namespace D3D9Base {
     #include <d3dx9.h>
 }
 using namespace D3D9Base;
-#include "d3d9CallbackStructures.h"
+#include "interceptor\D3D9Wrapper\d3d9CallbackStructures.h"
 
 extern "C" {
     #include "lua.h"
