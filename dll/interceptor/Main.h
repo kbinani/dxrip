@@ -9,7 +9,7 @@
 
 #define INITGUID
 #define NOMINMAX
-#include "Config.h"
+#include "common/Config.h"
 
 //
 // Windows Header Files
