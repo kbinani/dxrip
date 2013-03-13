@@ -114,6 +114,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\Config.h" />
     <ClInclude Include="..\common\Engine.h" />
     <ClInclude Include="Direct3D9Functions.h" />
     <ClInclude Include="Direct3DBaseTexture9Functions.h" />
@@ -125,7 +126,6 @@
     <ClInclude Include="Direct3DTexture9Functions.h" />
     <ClInclude Include="Direct3DVertexBuffer9Functions.h" />
     <ClInclude Include="PointerSet.h" />
-    <ClInclude Include="Config.h" />
     <ClInclude Include="d3d9Callback.h" />
     <ClInclude Include="d3d9CallbackEmpty.h" />
     <ClInclude Include="d3d9CallbackStructures.h" />
@@ -142,7 +142,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="d3d9Wrapper.def" />
-    <None Include="Scratch.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
