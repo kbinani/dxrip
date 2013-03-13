@@ -10,13 +10,13 @@ class TestConfig(unittest.TestCase):
 
     def test_new(self):
         config = dxrip.lib.Config("test/fixture/lib/test_config")
-        self.assertEqual("C:\Program Files\Vendor Name\Hoge.exe", config.target())
+        self.assertEqual("C:\Program Files\Vendor Name\Hoge.exe", config.target)
 
     def test_write(self):
         directory = tempfile.mkdtemp()
         os.mkdir(os.path.join(directory, ".dxrip"))
         config = dxrip.lib.Config(directory)
-        config.set_target("Hoge.exe")
+        config.target = "Hoge.exe"
         config.write()
 
         conf_path = os.path.join(directory, ".dxrip", "config")
