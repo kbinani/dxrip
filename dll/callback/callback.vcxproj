@@ -11,22 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\common\Engine.cpp" />
+    <ClCompile Include="callback.cpp" />
     <ClCompile Include="Context.cpp" />
-    <ClCompile Include="d3d9callback.cpp" />
-    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Environment.props">
+    <None Include="..\common\Environment.props">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\Engine.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="D3D9Util.h" />
-    <ClInclude Include="Engine.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshDescriptor.h" />
@@ -37,8 +37,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{58C6CA64-39D8-40C1-98E3-816A902971E0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>d3d9callback</RootNamespace>
-    <ProjectName>d3d9callback</ProjectName>
+    <RootNamespace>dxrip</RootNamespace>
+    <ProjectName>callback</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -57,21 +57,21 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="Environment.props" />
+    <Import Project="..\common\Environment.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="Environment.props" />
+    <Import Project="..\common\Environment.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(D3D9InterceptorIncludePath);$(D3D9InterceptorIncludePath)D3D9Wrapper;$(DirectXSDKIncludePath);$(LuaIncludePath);$(ClxIncludePath)</IncludePath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(D3D9InterceptorIncludePath);$(D3D9InterceptorIncludePath)D3D9Wrapper;$(DirectXSDKIncludePath);$(LuaIncludePath);$(ClxIncludePath);$(SolutionDir)</IncludePath>
     <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(DirectXSDKLibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(D3D9InterceptorIncludePath);$(D3D9InterceptorIncludePath)D3D9Wrapper;$(DirectXSDKIncludePath);$(LuaIncludePath);$(ClxIncludePath)</IncludePath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(D3D9InterceptorIncludePath);$(D3D9InterceptorIncludePath)D3D9Wrapper;$(DirectXSDKIncludePath);$(LuaIncludePath);$(ClxIncludePath);$(SolutionDir)</IncludePath>
     <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(DirectXSDKLibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

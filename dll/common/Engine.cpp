@@ -5,8 +5,7 @@ Written by Matthew Fisher
 See Engine.h for a defintion of all files included here.
 */
 
-//All source files include Main.h
-#include "Main.h"
+#include "Engine.h"
 
 #include "Engine\Core\Stdhdr.cpp"
 #include "Engine\Core\UnicodeString.cpp"
