@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>d3d9Wrapper</ProjectName>
+    <ProjectName>interceptor</ProjectName>
     <ProjectGuid>{3A63512E-74A1-4446-960D-C59AE4E218E8}</ProjectGuid>
-    <RootNamespace>d3dWrapper</RootNamespace>
+    <RootNamespace>dxrip</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
