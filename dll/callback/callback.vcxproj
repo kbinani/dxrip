@@ -24,9 +24,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\Engine.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="D3D9Util.h" />
-    <ClInclude Include="Engine.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshDescriptor.h" />
