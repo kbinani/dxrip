@@ -3,7 +3,11 @@
 //
 // Dummy header for d3dCallback exports
 //
+#if defined(D3DCALLBACK_EXPORTS)
+#define D3D9CALLBACK_API __declspec(dllexport)
+#else
 #define D3D9CALLBACK_API __forceinline
+#endif
 
 D3D9CALLBACK_API void D3D9CallbackInitialize() {}
 D3D9CALLBACK_API void D3D9CallbackFreeMemory() {}
@@ -34,6 +38,7 @@ D3D9CALLBACK_API void ReportSetTransform(D3DTRANSFORMSTATETYPE State, CONST D3DM
 D3D9CALLBACK_API void ReportSetVertexDeclaration(D3DVERTEXELEMENT9 *Elements, UINT ElementCount) {}
 D3D9CALLBACK_API void ReportSetFVF(DWORD FVF) {}
 D3D9CALLBACK_API void ReportSetStreamSource(UINT StreamNumber, HANDLE VBufferHandle, UINT OffsetInBytes, UINT Stride) {}
+D3D9CALLBACK_API void ReportSetStreamSourceFreq(UINT StreamNumber, UINT FrequencyParameter) {}
 
 D3D9CALLBACK_API void ReportSetLight(DWORD Index, CONST D3DLIGHT9* pLight) {}
 D3D9CALLBACK_API void ReportLightEnable(DWORD Index, BOOL Enable) {}
@@ -61,6 +66,7 @@ D3D9CALLBACK_API void ReportSetRenderTarget(DWORD RenderTargetIndex, HANDLE Surf
 //
 // Render callbacks
 //
+D3D9CALLBACK_API bool PreRenderQuery(D3DPRIMITIVETYPE PrimitiveType, UINT PrimitiveCount) { return false; }
 D3D9CALLBACK_API bool ReportDrawPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount) { return true; }
 D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(D3DPRIMITIVETYPE PrimitiveType, INT BaseVertexIndex, UINT MinIndex, UINT NumVertices, UINT StartIndex, UINT PrimitiveCount) { return true; }
 D3D9CALLBACK_API bool ReportDrawPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType, UINT PrimitiveCount, CONST void* pVertexStreamZeroData, UINT VertexStreamZeroStride) { return true; }
