@@ -133,8 +133,8 @@
     <ClInclude Include="Overlay.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\common\Engine.cpp" />
     <ClCompile Include="d3d9Wrapper.cpp" />
-    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Overlay.cpp" />
   </ItemGroup>
