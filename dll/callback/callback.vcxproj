@@ -66,13 +66,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(LuaIncludePath);$(ClxIncludePath);$(SolutionDir)</IncludePath>
-    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir)</IncludePath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(LuaIncludePath);$(ClxIncludePath);$(SolutionDir)</IncludePath>
-    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(LuaLibraryPath);$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir)</IncludePath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -87,7 +87,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;lua52.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d9callback$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -110,7 +110,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;lua52.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d9callback$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>

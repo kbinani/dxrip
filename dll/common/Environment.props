@@ -6,8 +6,6 @@
     <ZlibLibraryPath>D:\Installer\lpng1514\projects\vstudio\Release Library\</ZlibLibraryPath>
     <LibpngIncludePath>D:\Installer\lpng1514\</LibpngIncludePath>
     <LibpngLibraryPath>D:\Installer\lpng1514\projects\vstudio\Release Library\</LibpngLibraryPath>
-    <LuaIncludePath>D:\Installer\lua-5.2.1\src</LuaIncludePath>
-    <LuaLibraryPath>D:\Installer\lua-5.2.1\Release</LuaLibraryPath>
     <ClxIncludePath>D:\Installer\clx_0.18.2</ClxIncludePath>
   </PropertyGroup>
   <PropertyGroup />
