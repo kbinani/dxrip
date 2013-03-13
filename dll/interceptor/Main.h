@@ -35,7 +35,7 @@ namespace D3D9Base
 #endif
 }
 
-#include "Engine.h"
+#include "common/Engine.h"
 
 #include "d3d9CallbackStructures.h"
 #include "Overlay.h"
