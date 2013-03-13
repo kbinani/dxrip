@@ -9,6 +9,8 @@ it is simpler to compile a subset of the code that includes only desired functio
 thus avoids as many external dependencies as possible.)
 */
 
+#pragma once
+
 /****************************/
 /*           Core           */
 /****************************/
