@@ -36,7 +36,7 @@ namespace D3D9Base {
     #include <d3dx9.h>
 }
 using namespace D3D9Base;
-#include "interceptor\D3D9Wrapper\d3d9CallbackStructures.h"
+#include "interceptor/d3d9CallbackStructures.h"
 
 extern "C" {
     #include "lua.h"
