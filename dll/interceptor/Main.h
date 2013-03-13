@@ -35,6 +35,9 @@ namespace D3D9Base
 #endif
 }
 
+#include "png.h"
+#include "pngstruct.h"
+
 #include "common/Engine.h"
 
 #include "d3d9CallbackStructures.h"
