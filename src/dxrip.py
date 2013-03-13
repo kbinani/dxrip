@@ -1,6 +1,7 @@
 import sys
 from error import *
 from init import *
+import lib
 
 if __name__ == "__main__":
     sub_command = sys.argv[1] if len(sys.argv) >= 2 else "help"
