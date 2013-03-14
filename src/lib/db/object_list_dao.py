@@ -74,4 +74,5 @@ class ObjectListDao:
 
     def migration_1(self, connection):
         connection.execute("CREATE TABLE `objects`(`id` INTEGER PRIMARY KEY, `name` TEXT NOT NULL);")
+        connection.execute("CREATE UNIQUE INDEX `index_name` ON `objects`(`name`);")
         connection.execute("CREATE TABLE `meshes`(`id` TEXT PRIMARY KEY, `object_id` INTEGER NOT NULL);")

@@ -1,4 +1,5 @@
 CREATE TABLE `objects`(`id` INTEGER PRIMARY KEY, `name` TEXT NOT NULL);
+CREATE UNIQUE INDEX `index_name` ON `objects`(`name`);
 CREATE TABLE `meshes`(`id` TEXT PRIMARY KEY, `object_id` INTEGER NOT NULL);
 
 INSERT INTO `objects`(`id`, `name`) VALUES(1, 'wood');
