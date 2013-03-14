@@ -18,6 +18,9 @@ class Config:
         file.writelines([line + "\n" for line in contents])
         file.close()
 
+    def get_db_file_path(self):
+        return os.path.join(self.__directory, ".dxrip", "db")
+
     def __read(self, conf_path):
         conf = configparser.SafeConfigParser()
         conf.read(conf_path)

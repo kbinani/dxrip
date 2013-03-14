@@ -23,5 +23,11 @@ class TestConfig(unittest.TestCase):
         self.assertTrue(os.path.isfile(conf_path))
         self.assertEqual(["[core]", "\ttarget = Hoge.exe"], [line.rstrip() for line in open(conf_path, "r").readlines()])
 
+    def test_get_db_file_path(self):
+        config = dxrip.lib.Config("test/fixture/lib/test_config")
+        actual = config.get_db_file_path()
+        expected = "test/fixture/lib/test_config/.dxrip/db"
+        self.assertEqual(expected, actual)
+
 if __name__ == "__main__":
     unittest.main(testRunner = xmlrunner.XMLTestRunner(output = "test/report"))
