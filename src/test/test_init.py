@@ -30,6 +30,7 @@ class TestInit(unittest.TestCase):
         status, work_file = tempfile.mkstemp(dir = self.work_directory)
         self.runner.execute([work_file])
         self.assertTrue(os.path.isdir(self.work_directory + '/.dxrip'))
+        self.assertTrue(os.path.isfile(os.path.join(self.work_directory, '.dxrip', 'config')))
 
     def test_execute_for_already_initialized(self):
         os.mkdir(self.work_directory + '/.dxrip')
