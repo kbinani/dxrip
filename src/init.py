@@ -29,4 +29,5 @@ class Init:
         if os.path.isdir(repository):
             raise dxrip.Error(['error: ".dxrip" directory already exists'])
         os.mkdir(repository)
+        os.system("attrib +h \"" + repository + "\"")
         self.__config.write()
