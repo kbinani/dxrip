@@ -23,10 +23,35 @@ class TestObjectListDao(unittest.TestCase):
         test_repository = self.__create_test_repository("test/fixture/lib/db/test_object_list_dao/fixture.sql")
         config = dxrip.lib.Config(test_repository)
         config.db_version = 1
-        dao = dxrip.lib.ObjectListDao(config)
+        dao = dxrip.lib.db.ObjectListDao(config)
         actual = dao.get_object_name_list()
         expected = ["wood"]
         self.assertEqual(expected, actual)
+
+    def test_create_object(self):
+        test_repository = self.__create_test_repository("test/fixture/lib/db/test_object_list_dao/fixture.sql")
+        config = dxrip.lib.Config(test_repository)
+        config.db_version = 1
+        dao = dxrip.lib.db.ObjectListDao(config)
+        dao.create_object("rock")
+
+        db_file = os.path.join(test_repository, ".dxrip", "db")
+        connection = sqlite3.connect(db_file)
+        actual = connection.execute("SELECT `name` FROM `objects` WHERE `name` = 'rock';").fetchone()
+        self.assertIsNotNone(actual)
+        self.assertEqual("rock", actual[0])
+
+    def test_create_object_with_duplication_error(self):
+        test_repository = self.__create_test_repository("test/fixture/lib/db/test_object_list_dao/fixture.sql")
+        config = dxrip.lib.Config(test_repository)
+        config.db_version = 1
+        dao = dxrip.lib.db.ObjectListDao(config)
+        try:
+            dao.create_object("wood")
+        except dxrip.Error as e:
+            self.assertEqual(["error: object name \"wood\" is already in use."], e.messages)
+        else:
+            self.fail("expected exception was not raised")
 
     def __create_test_repository(self, fixture_path = None):
         test_repository = tempfile.mkdtemp()

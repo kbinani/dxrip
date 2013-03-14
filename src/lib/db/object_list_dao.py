@@ -1,3 +1,4 @@
+import dxrip
 import sqlite3
 
 class ObjectListDao:
@@ -33,7 +34,12 @@ class ObjectListDao:
             dxrip.Error: An error occured 'object_name' duplication.
 
         """
-        pass
+        try:
+            self.__connection.execute("INSERT INTO `objects`(`name`) VALUES(?)", (object_name, ))
+            self.__connection.commit()
+        except sqlite3.IntegrityError:
+            self.__connection.rollback()
+            raise dxrip.Error(["error: object name \"" + object_name + "\" is already in use."])
 
     def delete_object(self, object_name):
         u"""Delete object.
