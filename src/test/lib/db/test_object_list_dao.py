@@ -19,6 +19,15 @@ class TestObjectListDao(unittest.TestCase):
         self.assertEqual("name", table_info[1][1])
         self.assertEqual("TEXT", table_info[1][2])
 
+    def test_get_object_name_list(self):
+        test_repository = self.__create_test_repository("test/fixture/lib/db/test_object_list_dao/fixture.sql")
+        config = dxrip.lib.Config(test_repository)
+        config.db_version = 1
+        dao = dxrip.lib.ObjectListDao(config)
+        actual = dao.get_object_name_list()
+        expected = ["wood"]
+        self.assertEqual(expected, actual)
+
     def __create_test_repository(self, fixture_path = None):
         test_repository = tempfile.mkdtemp()
         os.mkdir(os.path.join(test_repository, ".dxrip"))
@@ -29,6 +38,7 @@ class TestObjectListDao(unittest.TestCase):
             for sql in file.readlines():
                 connection.execute(sql)
             file.close()
+            connection.commit()
             connection.close()
         return test_repository
 

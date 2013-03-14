@@ -20,7 +20,8 @@ class ObjectListDao:
         Returns:
             A list of object name
         """
-        pass
+        query = "SELECT `name` FROM `objects` ORDER BY `name` ASC;"
+        return [record[0] for record in self.__connection.execute(query).fetchall()]
 
     def create_object(self, object_name):
         u"""Create new object with specified name.
