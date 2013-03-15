@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\common\Engine.cpp" />
     <ClCompile Include="callback.cpp" />
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -25,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\Engine.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="D3D9Util.h" />
     <ClInclude Include="Main.h" />

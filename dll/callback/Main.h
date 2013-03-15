@@ -44,3 +44,7 @@ using namespace D3D9Base;
 #include <vector>
 #include <clx/sha1.h>
 #include "Mesh.h"
+
+extern HANDLE globalDllModuleHandle;
+
+BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
