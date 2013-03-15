@@ -6,8 +6,8 @@ namespace com { namespace github { namespace kbinani {
         this->directory = directory;
     }
 
-    const std::string Config::GetFrameDataDirectory() const {
-        return GetRepositoryDirectory() + "\\frame";
+    const std::string Config::GetSceneDataDirectory() const {
+        return GetRepositoryDirectory() + "\\scene";
     }
 
     const std::string Config::GetMeshDataDirectory() const {

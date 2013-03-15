@@ -143,7 +143,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         std::string directory;
         {
             std::ostringstream stream;
-            stream << context->Config().GetFrameDataDirectory() << "\\" << context->sceneCount;
+            stream << context->Config().GetSceneDataDirectory() << "\\" << context->sceneCount;
             directory = stream.str();
         }
         if (lastSceneCount != context->sceneCount) {

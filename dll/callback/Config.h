@@ -24,11 +24,11 @@ namespace com { namespace github { namespace kbinani {
         const std::string GetMeshDataDirectory() const;
 
         /**
-         * Get directory path for frame data. Typically returns ${directory}\.dxrip\frame.
+         * Get directory path for scene data. Typically returns ${directory}\.dxrip\scene.
          *
          * @returns  A directory path.
          */
-        const std::string GetFrameDataDirectory() const;
+        const std::string GetSceneDataDirectory() const;
 
     private:
         const std::string GetRepositoryDirectory() const;
