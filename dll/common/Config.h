@@ -39,7 +39,7 @@ Options that affect the compiler, debug output, DirectX debug modes, etc.
 //
 // Enables asserts in release mode
 //
-#define ALWAYS_ASSERT
+//#define ALWAYS_ASSERT
 
 //
 // Control over DirectX debug modes
