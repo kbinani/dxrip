@@ -82,7 +82,6 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
     ID3D9DeviceOverlay *overlay = context->screenOverlay;
     if (PrimitiveType == D3D9Base::D3DPT_TRIANGLELIST) {
         static int lastSceneCount = -1;
-        std::string baseDirectory = "C:\\ProgramData\\Temp\\d3d9callback_mesh\\";
 
         D3D9Base::IDirect3DBaseTexture9 *texture;
         if (device->GetTexture(0, &texture) != D3D_OK) {
@@ -94,12 +93,12 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         TextureRepository *textureRepository = TextureRepository::Instance();
         std::string textureFile;
         if (!textureRepository->Exists(textureDesc)) {
-            std::string tempFilePath = baseDirectory + "temp.png";
+            std::string tempFilePath = context->Config().GetMeshDataDirectory() + "\\temp.png";
             std::string contentsHash = textureDesc.Save(tempFilePath);
             textureRepository->Register(textureDesc, contentsHash);
             std::ostringstream textureFilePath;
             textureFile = contentsHash + ".png";
-            textureFilePath << baseDirectory << textureFile;
+            textureFilePath << context->Config().GetMeshDataDirectory() << "\\" << textureFile;
             ::rename(tempFilePath.c_str(), textureFilePath.str().c_str());
             overlay->WriteLine(String("[T] ") + String(contentsHash.c_str()), RGBColor(255, 0, 0, 64), 0);
         } else {
@@ -120,7 +119,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
                 repository->Register(meshDesc, contentsHash);
 
                 std::ostringstream filePath;
-                filePath << baseDirectory << contentsHash << ".x";
+                filePath << context->Config().GetMeshDataDirectory() << "\\" << contentsHash << ".x";
                 struct stat st;
                 if (::stat(filePath.str().c_str(), &st) != 0) {
                     std::ostringstream frameName;
@@ -144,7 +143,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         std::string directory;
         {
             std::ostringstream stream;
-            stream << "C:\\ProgramData\\Temp\\d3d9callback\\" << context->sceneCount;
+            stream << context->Config().GetSceneDataDirectory() << "\\" << context->sceneCount;
             directory = stream.str();
         }
         if (lastSceneCount != context->sceneCount) {
@@ -159,7 +158,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         std::string targetMeshPath;
         {
             std::ostringstream stream;
-            stream << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << meshFile;
+            stream << context->Config().GetMeshDataDirectory() << "\\" << meshFile;
             targetMeshPath = stream.str();
         }
         CreateSymbolicLink(linkMeshPath.c_str(), targetMeshPath.c_str(), 0);
@@ -173,7 +172,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         std::string targetTexturePath;
         {
             std::ostringstream stream;
-            stream << "C:\\ProgramData\\Temp\\d3d9callback_mesh\\" << textureFile;
+            stream << context->Config().GetMeshDataDirectory() << "\\" << textureFile;
             targetTexturePath = stream.str();
         }
         CreateSymbolicLink(linkTexturePath.c_str(), targetTexturePath.c_str(), 0);

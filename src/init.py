@@ -31,3 +31,6 @@ class Init:
         os.mkdir(repository)
         os.system("attrib +h \"" + repository + "\"")
         self.__config.write()
+
+        os.mkdir(os.path.join(repository, 'mesh'))
+        os.mkdir(os.path.join(repository, 'scene'))
