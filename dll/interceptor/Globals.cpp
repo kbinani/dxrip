@@ -48,8 +48,8 @@ void Globals::Init()
         _ErrorFile = new ofstream(errorFilePath);
         PersistentAssert(!_ErrorFile->fail(), "Failed to open ErrorFile");
     } else {
-        _InfoFile = new com::github::kbinani::nullstream;
-        _UnreportedFile = new com::github::kbinani::nullstream;
-        _ErrorFile = new com::github::kbinani::nullstream;
+        _InfoFile = new ::nullstream;
+        _UnreportedFile = new ::nullstream;
+        _ErrorFile = new ::nullstream;
     }
 }
