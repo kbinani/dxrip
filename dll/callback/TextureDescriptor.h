@@ -2,7 +2,7 @@
 
 #include "Main.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     class TextureDescriptor {
     public:
@@ -58,4 +58,4 @@ namespace com { namespace github { namespace kbinani {
         std::string hash;
     };
 
-} } }
+} }

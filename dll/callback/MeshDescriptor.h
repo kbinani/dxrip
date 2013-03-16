@@ -2,7 +2,7 @@
 
 #include "Main.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     class MeshDescriptor {
     public:
@@ -54,4 +54,4 @@ namespace com { namespace github { namespace kbinani {
         std::string hash;
     };
 
-} } }
+} }

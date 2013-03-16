@@ -2,7 +2,7 @@
 
 #include "TextureDescriptor.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     class TextureRepository {
     public:
@@ -30,4 +30,4 @@ namespace com { namespace github { namespace kbinani {
         std::map<std::string, std::pair<TextureDescriptor, std::string> > repository;
     };
 
-} } }
+} }

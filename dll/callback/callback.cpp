@@ -7,7 +7,7 @@
 #include "TextureRepository.h"
 #include <sys/stat.h>
 
-using namespace com::github::kbinani;
+using namespace dxrip::callback;
 
 D3D9CALLBACK_API void D3D9CallbackInitialize() {}
 D3D9CALLBACK_API void D3D9CallbackFreeMemory() {}
@@ -110,7 +110,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         MeshRepository *repository = MeshRepository::Instance();
         std::string meshFile;
         if (!repository->Exists(meshDesc)) {
-            com::github::kbinani::Mesh mesh(meshDesc);
+            dxrip::callback::Mesh mesh(meshDesc);
             if (mesh.IsValid()) {
                 std::ostringstream fileContents;
                 mesh.WriteFrame(fileContents, textureFile);

@@ -3,7 +3,7 @@
 #include "Main.h"
 #include "MeshDescriptor.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     class Mesh {
     public:
@@ -27,4 +27,4 @@ namespace com { namespace github { namespace kbinani {
         std::string lastError;
     };
 
-} } }
+} }

@@ -4,7 +4,7 @@
 #include "Main.h"
 #include "Config.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     class Context {
     public:
@@ -28,6 +28,6 @@ namespace com { namespace github { namespace kbinani {
         const std::string GetModuleFileDirectory(HANDLE dllHandle) const;
     };
 
-} } }
+} }
 
 #endif

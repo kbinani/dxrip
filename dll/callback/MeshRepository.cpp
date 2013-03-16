@@ -1,6 +1,6 @@
 ﻿#include "MeshRepository.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     MeshRepository *MeshRepository::Instance() {
         static MeshRepository instance;
@@ -22,4 +22,4 @@ namespace com { namespace github { namespace kbinani {
         return value.second;
     }
 
-} } }
+} }

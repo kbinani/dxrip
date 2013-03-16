@@ -1,6 +1,6 @@
 #include "Config.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     Config::Config(const std::string &directory) {
         this->directory = directory;
@@ -18,4 +18,4 @@ namespace com { namespace github { namespace kbinani {
         return directory + ".dxrip";
     }
 
-} } }
+} }
