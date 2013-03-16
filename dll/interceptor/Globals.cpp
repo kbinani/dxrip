@@ -1,4 +1,5 @@
 #include "Main.h"
+#include "nullstream.h"
 
 void Globals::Init()
 {
@@ -47,6 +48,8 @@ void Globals::Init()
         _ErrorFile = new ofstream(errorFilePath);
         PersistentAssert(!_ErrorFile->fail(), "Failed to open ErrorFile");
     } else {
-        //TODO: create null stream
+        _InfoFile = new com::github::kbinani::nullstream;
+        _UnreportedFile = new com::github::kbinani::nullstream;
+        _ErrorFile = new com::github::kbinani::nullstream;
     }
 }
