@@ -6,7 +6,6 @@ Options that affect the compiler, debug output, DirectX debug modes, etc.
 */
 
 //#define USE_EMPTY_CALLBACK
-#define WRITING_TO_FILES
 #define USE_D3DX
 
 //
