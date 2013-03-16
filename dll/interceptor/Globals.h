@@ -6,10 +6,11 @@ struct Globals
         _InfoFile = NULL;
         _UnreportedFile = NULL;
         _ErrorFile = NULL;
-	}
+    }
 	void Init();
 
     bool Initialized;
+    bool WritingToFiles;
 
 	String BaseDirectory;
 	String OutputFileDirectory;
@@ -21,22 +22,22 @@ struct Globals
     bool ForceSoftwareVertexProcessing;
     bool UsingNullPixelShader;
     bool VideoCaptureMode;
-	
-    __forceinline ofstream& InfoFile()
+
+    __forceinline ostream &InfoFile()
     {
         return *_InfoFile;
     }
-    __forceinline ofstream& UnreportedFile()
+    __forceinline ostream &UnreportedFile()
     {
         return *_UnreportedFile;
     }
-    __forceinline ofstream& ErrorFile()
+    __forceinline ostream &ErrorFile()
     {
         return *_ErrorFile;
     }
 
 private:
-	ofstream *_InfoFile;
-	ofstream *_UnreportedFile;
-	ofstream *_ErrorFile;
+    ostream *_InfoFile;
+    ostream *_UnreportedFile;
+    ostream *_ErrorFile;
 };
