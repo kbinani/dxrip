@@ -5,18 +5,28 @@ void Globals::Init()
 	Initialized = true;
 	
     UsingNullPixelShader = false;
-	ParameterFile Parameters(String("WrapperParameters.txt"));
-	BaseDirectory = Parameters.GetRequiredString("BaseDirectory");
-	OutputFileDirectory = BaseDirectory + String("\\") + Parameters.GetRequiredString("OutputFileDirectory") + String("\\");
-	RealD3D9DLL = Parameters.GetRequiredString("RealD3D9DLL");
+    String fileName = String("WrapperParameters.txt");
+    if (Utility::FileExists(fileName)) {
+	    ParameterFile Parameters(fileName);
+	    BaseDirectory = Parameters.GetRequiredString("BaseDirectory");
+	    OutputFileDirectory = BaseDirectory + String("\\") + Parameters.GetRequiredString("OutputFileDirectory") + String("\\");
+	    RealD3D9DLL = Parameters.GetRequiredString("RealD3D9DLL");
 	
-	UsingOverlay = Parameters.GetBoolean("UsingOverlay");
-	ConsoleLineCount = Parameters.GetUnsignedInteger("ConsoleLineCount");
+	    UsingOverlay = Parameters.GetBoolean("UsingOverlay");
+	    ConsoleLineCount = Parameters.GetUnsignedInteger("ConsoleLineCount");
 
-    ForceSoftwareVertexProcessing = Parameters.GetBoolean("ForceSoftwareVertexProcessing");
-    IgnoreTextureLocks = Parameters.GetBoolean("IgnoreTextureLocks");
+        ForceSoftwareVertexProcessing = Parameters.GetBoolean("ForceSoftwareVertexProcessing");
+        IgnoreTextureLocks = Parameters.GetBoolean("IgnoreTextureLocks");
 
-    VideoCaptureMode = Parameters.GetBoolean("VideoCaptureMode");
+        VideoCaptureMode = Parameters.GetBoolean("VideoCaptureMode");
+    } else {
+        char systemDirectory[_MAX_PATH + 1] = "";
+        ::GetSystemDirectoryA(systemDirectory, _MAX_PATH);
+        RealD3D9DLL = String(systemDirectory) + String("\\d3d9.dll");
+        UsingOverlay = false;
+        IgnoreTextureLocks = true;
+        VideoCaptureMode = false;
+    }
     if(VideoCaptureMode)
     {
         IgnoreTextureLocks = true;
