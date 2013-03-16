@@ -600,6 +600,9 @@ class Parser:
                 if me.materials[me.polygons[i].material_index].texture_slots[0]:
                     uvs.data[i].image = me.materials[me.polygons[i].material_index].texture_slots[0].texture.image
     
+        for material in me.materials:
+            material.game_settings.alpha_blend = "ALPHA"
+
         me.update()
     
         return me;
