@@ -4,7 +4,7 @@
 #include "MeshDescriptor.h"
 #include "D3D9Util.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     Mesh::Mesh(const MeshDescriptor &descriptor) {
         index.clear();
@@ -182,4 +182,4 @@ namespace com { namespace github { namespace kbinani {
         return lastError;
     }
 
-} } }
+} }

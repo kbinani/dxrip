@@ -2,7 +2,7 @@
 
 #include "Main.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     class D3D9Util {
     public:
@@ -50,4 +50,4 @@ namespace com { namespace github { namespace kbinani {
         }
     };
 
-} } }
+} }

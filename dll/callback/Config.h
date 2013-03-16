@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     /**
      * A configuration class to manage common configuration.
@@ -37,4 +37,4 @@ namespace com { namespace github { namespace kbinani {
         std::string directory;
     };
 
-} } }
+} }

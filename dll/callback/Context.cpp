@@ -2,7 +2,7 @@
 #include "Context.h"
 #include "Config.h"
 
-namespace com { namespace github { namespace kbinani {
+namespace dxrip { namespace callback {
 
     Context::Context() {
         screenOverlay = NULL;
@@ -10,7 +10,7 @@ namespace com { namespace github { namespace kbinani {
         sceneCount = 0;
 
         std::string directory = GetModuleFileDirectory(globalDllModuleHandle);
-        config = new com::github::kbinani::Config(directory);
+        config = new dxrip::callback::Config(directory);
     }
 
     Context *Context::Instance() {
@@ -43,4 +43,4 @@ namespace com { namespace github { namespace kbinani {
         return std::string(driveName) + std::string("") + std::string(directoryName);
     }
 
-} } }
+} }
