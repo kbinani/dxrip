@@ -1,6 +1,7 @@
 import sys
 from error import *
 from init import *
+from scene import *
 import lib
 
 if __name__ == "__main__":
@@ -10,6 +11,8 @@ if __name__ == "__main__":
 
     if sub_command == "init":
         runner = Init()
+    elif sub_command == "scene":
+        runner = Scene()
     elif sub_command == "help":
         print("help")
     else:

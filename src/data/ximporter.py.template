@@ -753,8 +753,8 @@ class XImporter(bpy.types.Operator):
     def execute(self, context):
         config = ImportSettings(CoordinateSystem = self.CoordinateSystem,
                                 UpwardAxis = self.UpwardAxis)
-        #TODO(kbinani): set file_list from caller
         file_list = []
+        #<file_list>#
         for file in file_list:
             import_x_from(file, config)
         return {'FINISHED'}
@@ -768,4 +768,3 @@ def unregister():
 if __name__ == '__main__':
     register()
     bpy.ops.bpt.import_x_from()
-    bpy.ops.wm.save_mainfile()
