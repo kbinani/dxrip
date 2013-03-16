@@ -5,6 +5,8 @@ class Config:
     __directory = None
     target = None
     db_version = 0
+    #TODO(kbinani): this can be modified by; dxrip config core.blender "C:\Program Files\Blender Foundation\Blender\blender.exe"
+    blender = "C:\\Program Files\\Blender Foundation\\Blender\\blender.exe"
 
     def __init__(self, directory):
         self.__directory = directory
@@ -23,6 +25,9 @@ class Config:
 
     def get_db_file_path(self):
         return os.path.join(self.__directory, ".dxrip", "db")
+
+    def get_scene_directory_path(self):
+        return os.path.join(self.__directory, ".dxrip", "scene")
 
     def __read(self, conf_path):
         conf = configparser.ConfigParser()
