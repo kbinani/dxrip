@@ -123,6 +123,10 @@
       <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;d3dx9.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d9callback$(TargetExt)</OutputFile>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(OutDir)d3d9callback$(TargetExt)" "$(SolutionDir)..\src\data\d3d9callback$(TargetExt)"
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
