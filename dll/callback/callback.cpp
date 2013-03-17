@@ -5,11 +5,21 @@
 #include "MeshRepository.h"
 #include "TextureDescriptor.h"
 #include "TextureRepository.h"
+#include "FileUtil.h"
 #include <sys/stat.h>
 
 using namespace dxrip::callback;
 
-D3D9CALLBACK_API void D3D9CallbackInitialize() {}
+D3D9CALLBACK_API void D3D9CallbackInitialize() {
+    Context *context = Context::Instance();
+    const std::string sceneDataDirectory = context->Config().GetSceneDataDirectory();
+
+    FileUtil util;
+    util.DeleteDirectoryTree(sceneDataDirectory);
+
+    util.CreateDirectory(sceneDataDirectory);
+}
+
 D3D9CALLBACK_API void D3D9CallbackFreeMemory() {}
 
 //

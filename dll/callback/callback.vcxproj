@@ -15,6 +15,7 @@
     <ClCompile Include="callback.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshRepository.cpp" />
@@ -29,6 +30,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="D3D9Util.h" />
+    <ClInclude Include="FileUtil.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshDescriptor.h" />
