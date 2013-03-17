@@ -15,9 +15,12 @@
     <ClCompile Include="callback.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="DaoBase.cpp" />
+    <ClCompile Include="EntityBase.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshRepository.cpp" />
+    <ClCompile Include="SceneObjectDao.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\common\Environment.props">
@@ -29,10 +32,13 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="D3D9Util.h" />
+    <ClInclude Include="DaoBase.h" />
+    <ClInclude Include="EntityBase.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshDescriptor.h" />
     <ClInclude Include="MeshRepository.h" />
+    <ClInclude Include="SceneObjectDao.h" />
     <ClInclude Include="TextureDescriptor.h" />
     <ClInclude Include="TextureRepository.h" />
   </ItemGroup>
