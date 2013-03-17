@@ -1,10 +1,10 @@
 ﻿#include "Main.h"
 #include "interceptor/d3d9Callback.h"
 #include "Context.h"
-#include "MeshDescriptor.h"
-#include "MeshRepository.h"
-#include "TextureDescriptor.h"
-#include "TextureRepository.h"
+#include "mesh/MeshDescriptor.h"
+#include "mesh/MeshRepository.h"
+#include "mesh/TextureDescriptor.h"
+#include "mesh/TextureRepository.h"
 #include <sys/stat.h>
 
 using namespace dxrip::callback;

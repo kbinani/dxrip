@@ -1,4 +1,5 @@
 #include "SceneObjectDao.h"
+#include <sstream>
 
 namespace dxrip { namespace callback {
 

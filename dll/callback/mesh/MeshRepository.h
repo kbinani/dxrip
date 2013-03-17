@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Main.h"
+#include "MeshDescriptor.h"
 
 namespace dxrip { namespace callback {
 

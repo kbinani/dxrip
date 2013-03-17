@@ -1,15 +1,17 @@
 ﻿#pragma once
 
-#include "Main.h"
+#include "../Main.h"
 #include "MeshDescriptor.h"
 
 namespace dxrip { namespace callback {
+
+    class MeshDescriptor;
 
     class Mesh {
     public:
         static const int OK = 0;
 
-        explicit Mesh(const MeshDescriptor &descriptor);
+        explicit Mesh(const dxrip::callback::MeshDescriptor &descriptor);
         /**
          * Write frame data to stream, as X file format.
          */

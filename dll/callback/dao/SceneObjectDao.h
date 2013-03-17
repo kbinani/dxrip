@@ -1,9 +1,7 @@
 #ifndef DXRIP_CALLBACK_SCENEDAO_H_
 #define DXRIP_CALLBACK_SCENEDAO_H_
 
-#include "Main.h"
 #include "DaoBase.h"
-#include "SceneObject.h"
 
 namespace dxrip { namespace callback {
 

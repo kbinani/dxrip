@@ -43,7 +43,7 @@ using namespace D3D9Base;
 #include <map>
 #include <vector>
 #include <clx/sha1.h>
-#include "Mesh.h"
+#include "mesh/Mesh.h"
 
 extern HANDLE globalDllModuleHandle;
 

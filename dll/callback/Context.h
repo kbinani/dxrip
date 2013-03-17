@@ -3,7 +3,7 @@
 
 #include "Main.h"
 #include "Config.h"
-#include "SceneObjectDao.h"
+#include "dao/SceneObjectDao.h"
 
 namespace dxrip { namespace callback {
 

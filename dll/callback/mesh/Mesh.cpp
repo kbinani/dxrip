@@ -2,7 +2,7 @@
 
 #include "Mesh.h"
 #include "MeshDescriptor.h"
-#include "D3D9Util.h"
+#include "../D3D9Util.h"
 
 namespace dxrip { namespace callback {
 
