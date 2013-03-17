@@ -8,7 +8,8 @@ class Scene:
     def execute(self, arguments):
         config = dxrip.lib.Config(os.getcwd())
         scene = self.__get_scene_number(arguments)
-        x_file_list = self.__get_x_file_list(config.get_scene_directory_path(), scene)
+        dao = dxrip.lib.db.SceneObjectDao(config)
+        x_file_list = self.__get_x_file_list(dao, scene, config.get_mesh_directory_path())
         temporary_script_path = self.__create_temporary_script(x_file_list)
         self.__execute_temporary_script(config.blender, temporary_script_path)
 
@@ -18,13 +19,12 @@ class Scene:
         args = parser.parse_args(arguments)
         return int(args.scene)
 
-    def __get_x_file_list(self, scene_directory_path, scene):
-        scene_directory = os.path.join(scene_directory_path, str(scene))
-        if not os.path.isdir(scene_directory):
+    def __get_x_file_list(self, dao, scene, mesh_directory_path):
+        object_list = dao.get_object_list(scene)
+        if len(object_list) == 0:
             raise dxrip.Error(["error: scene " + str(scene) + " does not exist"])
 
-        all_file_list = [os.path.join(scene_directory, file) for file in os.listdir(scene_directory)]
-        return [file.replace("\\", "\\\\") for file in all_file_list if os.path.isfile(file) and os.path.splitext(file)[1] == ".x"]
+        return [os.path.join(mesh_directory_path, object_id + ".x").replace("\\", "\\\\") for object_id in object_list]
 
     def __create_temporary_script(self, x_file_list):
         file_list = "file_list = [\"" + "\", \"".join(x_file_list) + "\"]"
