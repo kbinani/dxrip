@@ -1,0 +1,14 @@
+LIBRARY d3d9.dll
+
+HEAPSIZE 4096
+
+EXPORTS
+    Direct3DCreate9
+	D3DPERF_BeginEvent
+	D3DPERF_EndEvent
+	D3DPERF_SetMarker
+	D3DPERF_SetRegion
+	D3DPERF_QueryRepeatFrame
+	D3DPERF_SetOptions
+	D3DPERF_GetStatus
+	

@@ -1,0 +1,10 @@
+Debug/
+Release/
+*.opensdf
+*.sdf
+*.suo
+*.vcxproj.filters
+*.vcxproj.user
+ipch/
+__pycache__
+src/test/report/*.xml

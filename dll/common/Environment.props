@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <ZlibIncludePath>D:\Installer\zlib-1.2.7\</ZlibIncludePath>
+    <ZlibLibraryPath>D:\Installer\lpng1514\projects\vstudio\Release Library\</ZlibLibraryPath>
+    <LibpngIncludePath>D:\Installer\lpng1514\</LibpngIncludePath>
+    <LibpngLibraryPath>D:\Installer\lpng1514\projects\vstudio\Release Library\</LibpngLibraryPath>
+    <ClxIncludePath>D:\Installer\clx_0.18.2</ClxIncludePath>
+    <Sqlite3IncludePath>D:\Installer\sqlite-amalgamation-3071502</Sqlite3IncludePath>
+    <Sqlite3LibraryPath>D:\Installer\sqlite-amalgamation-3071502\Release</Sqlite3LibraryPath>
+    <BoostIncludePath>C:\Boost\include\boost-1_50</BoostIncludePath>
+    <BoostLibraryPath>C:\Boost\lib</BoostLibraryPath>
+  </PropertyGroup>
+</Project>
