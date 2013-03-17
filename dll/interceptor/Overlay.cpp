@@ -359,7 +359,7 @@ void Overlay::RenderConsole()
 			        //Rect.top -= 1;
 
                     RGBColor Color = CurLine.Color;
-			        _Font->DrawText(_Sprite, CurText.CString(), CurText.Length(), &Rect, DT_NOCLIP, D3D9Base::D3DXCOLOR(Color.r / 255.0f, Color.g / 255.0f, Color.b / 255.0f, 1.0f ));
+                    _Font->DrawText(_Sprite, CurText.CString(), CurText.Length(), &Rect, DT_NOCLIP, D3D9Base::D3DXCOLOR(Color.r / 255.0f, Color.g / 255.0f, Color.b / 255.0f, Color.a / 255.0f ));
 			    }
 			    LineIndex = Math::Mod(LineIndex + 1, CurPanel.Lines.Length());
 			    YPos += ConsoleYSeparation;
