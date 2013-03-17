@@ -27,6 +27,11 @@ class TestInit(unittest.TestCase):
             self.fail("expected exception was not raised")
 
     def test_execute(self):
+        for dll_file in ["d3d9.dll", "d3d9callback.dll"]:
+            source_file = os.path.join(os.path.dirname(dxrip.__file__), "data", dll_file)
+            if not os.path.isfile(source_file):
+                open(source_file, "w").close()
+
         status, work_file = tempfile.mkstemp(dir = self.work_directory)
         self.runner.execute([work_file])
         self.assertTrue(os.path.isdir(self.work_directory + '/.dxrip'))
