@@ -6,5 +6,7 @@
     <LibpngIncludePath>D:\Installer\lpng1514\</LibpngIncludePath>
     <LibpngLibraryPath>D:\Installer\lpng1514\projects\vstudio\Release Library\</LibpngLibraryPath>
     <ClxIncludePath>D:\Installer\clx_0.18.2</ClxIncludePath>
+    <Sqlite3IncludePath>D:\Installer\sqlite-amalgamation-3071502</Sqlite3IncludePath>
+    <Sqlite3LibraryPath>D:\Installer\sqlite-amalgamation-3071502\Release</Sqlite3LibraryPath>
   </PropertyGroup>
 </Project>
