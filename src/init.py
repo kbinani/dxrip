@@ -1,6 +1,7 @@
 import argparse
 import os
 import dxrip
+import shutil
 
 class Init:
     __config = None
@@ -9,6 +10,7 @@ class Init:
         self.__parse_arguments(arguments)
         self.__validate_options()
         self.__prepare_repository_directory()
+        self.__deploy_dlls()
 
     def __parse_arguments(self, arguments):
         parser = argparse.ArgumentParser()
@@ -34,3 +36,9 @@ class Init:
 
         os.mkdir(os.path.join(repository, 'mesh'))
         os.mkdir(os.path.join(repository, 'scene'))
+
+    def __deploy_dlls(self):
+        data_directory = os.path.join(os.path.dirname(dxrip.__file__), "data")
+        destination_directory = os.path.dirname(self.__config.target)
+        for file in ["d3d9.dll", "d3d9callback.dll"]:
+            shutil.copyfile(os.path.join(data_directory, file), os.path.join(destination_directory, file))
