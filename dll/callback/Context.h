@@ -3,6 +3,7 @@
 
 #include "Main.h"
 #include "Config.h"
+#include "SceneObjectDao.h"
 
 namespace dxrip { namespace callback {
 
@@ -14,6 +15,7 @@ namespace dxrip { namespace callback {
 
     private:
         Config *config;
+        SceneObjectDao *sceneObjects;
 
     public:
         static Context *Instance();
@@ -21,6 +23,8 @@ namespace dxrip { namespace callback {
         ~Context();
 
         const Config &Config() const;
+
+        SceneObjectDao &SceneObjects();
 
     private:
         Context();

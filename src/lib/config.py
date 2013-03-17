@@ -26,8 +26,14 @@ class Config:
     def get_db_file_path(self):
         return os.path.join(self.__directory, ".dxrip", "db")
 
+    def get_scene_db_file_path(self):
+        return os.path.join(self.get_scene_directory_path(), "db")
+
     def get_scene_directory_path(self):
         return os.path.join(self.__directory, ".dxrip", "scene")
+
+    def get_mesh_directory_path(self):
+        return os.path.join(self.__directory, ".dxrip", "mesh")
 
     def __read(self, conf_path):
         conf = configparser.ConfigParser()

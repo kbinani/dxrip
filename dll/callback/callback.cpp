@@ -81,8 +81,6 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
     D3D9Base::IDirect3DDevice9 *device = context->device;
     ID3D9DeviceOverlay *overlay = context->screenOverlay;
     if (PrimitiveType == D3D9Base::D3DPT_TRIANGLELIST) {
-        static int lastSceneCount = -1;
-
         D3D9Base::IDirect3DBaseTexture9 *texture;
         if (device->GetTexture(0, &texture) != D3D_OK) {
             overlay->WriteLine(String("ReportDrawIndexedPrimitive; GetTexture failed"), RGBColor(0, 0, 0), 0);
@@ -140,43 +138,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
             meshFile = repository->GetContentsHash(meshDesc) + ".x";
         }
 
-        std::string directory;
-        {
-            std::ostringstream stream;
-            stream << context->Config().GetSceneDataDirectory() << "\\" << context->sceneCount;
-            directory = stream.str();
-        }
-        if (lastSceneCount != context->sceneCount) {
-            CreateDirectory(directory.c_str(), NULL);
-        }
-        std::string linkMeshPath;
-        {
-            std::ostringstream stream;
-            stream << directory << "\\" << meshFile;
-            linkMeshPath = stream.str();
-        }
-        std::string targetMeshPath;
-        {
-            std::ostringstream stream;
-            stream << context->Config().GetMeshDataDirectory() << "\\" << meshFile;
-            targetMeshPath = stream.str();
-        }
-        CreateSymbolicLink(linkMeshPath.c_str(), targetMeshPath.c_str(), 0);
-
-        std::string linkTexturePath;
-        {
-            std::ostringstream stream;
-            stream << directory << "\\" << textureFile;
-            linkTexturePath = stream.str();
-        }
-        std::string targetTexturePath;
-        {
-            std::ostringstream stream;
-            stream << context->Config().GetMeshDataDirectory() << "\\" << textureFile;
-            targetTexturePath = stream.str();
-        }
-        CreateSymbolicLink(linkTexturePath.c_str(), targetTexturePath.c_str(), 0);
-        lastSceneCount = context->sceneCount;
+        context->SceneObjects().Add(context->sceneCount, repository->GetContentsHash(meshDesc));
     }
     return true;
 }

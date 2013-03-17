@@ -15,9 +15,12 @@
     <ClCompile Include="callback.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="DaoBase.cpp" />
+    <ClCompile Include="EntityBase.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshRepository.cpp" />
+    <ClCompile Include="SceneObjectDao.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\common\Environment.props">
@@ -29,10 +32,13 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="D3D9Util.h" />
+    <ClInclude Include="DaoBase.h" />
+    <ClInclude Include="EntityBase.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshDescriptor.h" />
     <ClInclude Include="MeshRepository.h" />
+    <ClInclude Include="SceneObjectDao.h" />
     <ClInclude Include="TextureDescriptor.h" />
     <ClInclude Include="TextureRepository.h" />
   </ItemGroup>
@@ -70,13 +76,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir)</IncludePath>
-    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir);$(Sqlite3IncludePath)</IncludePath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(Sqlite3LibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir)</IncludePath>
-    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir);$(Sqlite3IncludePath)</IncludePath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(Sqlite3LibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -91,7 +97,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;d3dx9.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d9callback$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -114,7 +120,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng15.lib;winmm.lib;zlib.lib;d3dx9.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d9callback$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>

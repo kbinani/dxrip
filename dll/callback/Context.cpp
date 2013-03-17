@@ -11,6 +11,7 @@ namespace dxrip { namespace callback {
 
         std::string directory = GetModuleFileDirectory(globalDllModuleHandle);
         config = new dxrip::callback::Config(directory);
+        sceneObjects = new SceneObjectDao(config->GetSceneDataDirectory() + "\\db");
     }
 
     Context *Context::Instance() {
@@ -28,6 +29,14 @@ namespace dxrip { namespace callback {
             delete config;
             config = NULL;
         }
+        if (sceneObjects) {
+            delete sceneObjects;
+            sceneObjects = NULL;
+        }
+    }
+
+    SceneObjectDao &Context::SceneObjects() {
+        return *sceneObjects;
     }
 
     const std::string Context::GetModuleFileDirectory(HANDLE dllHandle) const {
