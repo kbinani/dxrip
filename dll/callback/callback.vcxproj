@@ -76,13 +76,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir);$(Sqlite3IncludePath)</IncludePath>
-    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(Sqlite3LibraryPath);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir);$(Sqlite3IncludePath);$(BoostIncludePath)</IncludePath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(Sqlite3LibraryPath);$(BoostLibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir);$(Sqlite3IncludePath)</IncludePath>
-    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(Sqlite3LibraryPath);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibpngIncludePath);$(ZlibIncludePath);$(IncludePath);$(DXSDK_DIR)Include;$(ClxIncludePath);$(SolutionDir);$(Sqlite3IncludePath);$(BoostIncludePath)</IncludePath>
+    <LibraryPath>$(LibpngLibraryPath);$(ZlibLibraryPath);$(DXSDK_DIR)Lib\x86;$(Sqlite3LibraryPath);$(BoostLibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
