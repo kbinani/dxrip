@@ -43,11 +43,11 @@ Show objects in a scene using Blender.
 ### options
 N/A
 
-#lisence
+#license
 GNU General Public License version 2
 
 #note
 * io_import_directx_x.py is Copyright © 2012 T.Yonemori
-    * distributed under GPLv2 Lisence at http://blender.jp/modules/newbb/viewtopic.php?post_id=7260&topic_id=1401&forum=5
+    * distributed under GPLv2 License at http://blender.jp/modules/newbb/viewtopic.php?post_id=7260&topic_id=1401&forum=5
 * BaseCode, D3D9Interceptor is both Copyright © 2012 Matthew Fisher
-    * distributed under MIT Lisence at http://graphics.stanford.edu/~mdfisher/projects.html
+    * distributed under MIT License at http://graphics.stanford.edu/~mdfisher/projects.html
