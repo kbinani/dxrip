@@ -78,8 +78,8 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
     UINT PrimitiveCount
 ) {
     Context *context = Context::Instance();
-    D3D9Base::IDirect3DDevice9 *device = context->device;
-    ID3D9DeviceOverlay *overlay = context->screenOverlay;
+    D3D9Base::IDirect3DDevice9 *device = context->GetDevice();
+    ID3D9DeviceOverlay *overlay = context->GetOverlay();
     if (PrimitiveType == D3D9Base::D3DPT_TRIANGLELIST) {
         D3D9Base::IDirect3DBaseTexture9 *texture;
         if (device->GetTexture(0, &texture) != D3D_OK) {
@@ -91,12 +91,12 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
         TextureRepository *textureRepository = TextureRepository::Instance();
         std::string textureFile;
         if (!textureRepository->Exists(textureDesc)) {
-            std::string tempFilePath = context->Config().GetMeshDataDirectory() + "\\temp.png";
+            std::string tempFilePath = context->GetConfig().GetMeshDataDirectory() + "\\temp.png";
             std::string contentsHash = textureDesc.Save(tempFilePath);
             textureRepository->Register(textureDesc, contentsHash);
             std::ostringstream textureFilePath;
             textureFile = contentsHash + ".png";
-            textureFilePath << context->Config().GetMeshDataDirectory() << "\\" << textureFile;
+            textureFilePath << context->GetConfig().GetMeshDataDirectory() << "\\" << textureFile;
             ::rename(tempFilePath.c_str(), textureFilePath.str().c_str());
             overlay->WriteLine(String("[T] ") + String(contentsHash.c_str()), RGBColor(255, 0, 0, 64), 0);
         } else {
@@ -117,7 +117,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
                 repository->Register(meshDesc, contentsHash);
 
                 std::ostringstream filePath;
-                filePath << context->Config().GetMeshDataDirectory() << "\\" << contentsHash << ".x";
+                filePath << context->GetConfig().GetMeshDataDirectory() << "\\" << contentsHash << ".x";
                 struct stat st;
                 if (::stat(filePath.str().c_str(), &st) != 0) {
                     std::ostringstream frameName;
@@ -138,7 +138,7 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
             meshFile = repository->GetContentsHash(meshDesc) + ".x";
         }
 
-        context->SceneObjects().AddAsync(context->sceneCount, repository->GetContentsHash(meshDesc));
+        context->GetSceneObjects()->AddAsync(context->GetSceneCount(), repository->GetContentsHash(meshDesc));
     }
     return true;
 }
@@ -160,7 +160,7 @@ D3D9CALLBACK_API void ReportClear(DWORD Count,CONST D3DRECT* pRects,DWORD Flags,
 //
 D3D9CALLBACK_API void ReportBeginScene() {
     Context *context = Context::Instance();
-    context->sceneCount++;
+    context->IncrementSceneCount();
 }
 
 D3D9CALLBACK_API void ReportEndScene() {}
@@ -170,8 +170,8 @@ D3D9CALLBACK_API void ReportEndScene() {}
 //
 D3D9CALLBACK_API void ReportCreateDevice(D3D9Base::LPDIRECT3DDEVICE9 Device, ID3D9DeviceOverlay *Overlay) {
     Context *context = Context::Instance();
-    context->screenOverlay = Overlay;
-    context->device = Device;
+    context->SetOverlay(Overlay);
+    context->SetDevice(Device);
 }
 D3D9CALLBACK_API void ReportFreeDevice() {}
 

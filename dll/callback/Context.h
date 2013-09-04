@@ -7,30 +7,30 @@
 
 namespace dxrip { namespace callback {
 
-    class Context {
+	class Config;
+
+    class Context
+	{
     public:
-        ID3D9DeviceOverlay *screenOverlay;
-        LPDIRECT3DDEVICE9 device;
-        int sceneCount;
-
-    private:
-        Config *config;
-        SceneObjectDao *sceneObjects;
-
-    public:
-        static Context *Instance();
-
         ~Context();
 
-        const Config &Config() const;
+        static Context * Instance();
 
-        SceneObjectDao &SceneObjects();
+		void SetDevice(LPDIRECT3DDEVICE9 device);
+        LPDIRECT3DDEVICE9 GetDevice() const;
+		void SetOverlay(ID3D9DeviceOverlay * overlay);
+		ID3D9DeviceOverlay * GetOverlay() const;
+		int GetSceneCount() const;
+        Config const& GetConfig() const;
+        SceneObjectDao * GetSceneObjects() const;
+		void IncrementSceneCount();
 
-    private:
+	private:
+		struct Impl;
+		std::shared_ptr<Impl> impl_;
+
         Context();
-
-        const std::string GetModuleFileDirectory(HANDLE dllHandle) const;
-    };
+	};
 
 } }
 
