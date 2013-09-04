@@ -36,16 +36,18 @@ void Globals::Init()
     }
 
     if (WritingToFiles) {
-        const char *infoFilePath = (OutputFileDirectory + String("WrapperInfo.txt")).CString();
-        _InfoFile = new ofstream(infoFilePath);
-        PersistentAssert(!_InfoFile->fail(), "Failed to open InfoFile");
+		std::ostringstream stream;
+		stream << OutputFileDirectory.CString() << "WrapperInfo.txt";
+		std::ostringstream ss;
+		ss << "Failed to open InfoFile; OutputFileDirectory=" << OutputFileDirectory.CString() << "; String(\"WrapperInfo.txt\")=" << (String("WrapperInfo.txt").CString()) << "; path=" << stream.str();
+        _InfoFile = new ofstream(stream.str().c_str());
 
-        const char *unreportedFilePath = (OutputFileDirectory + String("WrapperUnreportedEvents.txt")).CString();
-        _UnreportedFile = new ofstream(unreportedFilePath);
+		std::string unreportedFilePath = std::string(OutputFileDirectory.CString()) + std::string("WrapperUnreportedEvents.txt");
+		_UnreportedFile = new ofstream(unreportedFilePath.c_str());
         PersistentAssert(!_UnreportedFile->fail(), "Failed to open UnreportedFile");
 
-        const char *errorFilePath = (OutputFileDirectory + String("WrapperErrors.txt")).CString();
-        _ErrorFile = new ofstream(errorFilePath);
+		std::string errorFilePath = std::string(OutputFileDirectory.CString()) + std::string("WrapperErrors.txt");
+        _ErrorFile = new ofstream(errorFilePath.c_str());
         PersistentAssert(!_ErrorFile->fail(), "Failed to open ErrorFile");
     } else {
         _InfoFile = new ::nullstream;
