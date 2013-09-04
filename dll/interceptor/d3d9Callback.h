@@ -16,7 +16,8 @@ Header for d3d9Callback exports.
 #ifdef D3DCALLBACK_EXPORTS
 #define D3D9CALLBACK_API __declspec(dllexport)
 #else
-#define D3D9CALLBACK_API __declspec(dllimport)
+#define D3D9CALLBACK_API
+//#define D3D9CALLBACK_API __declspec(dllimport)
 #endif
 
 D3D9CALLBACK_API void D3D9CallbackInitialize();

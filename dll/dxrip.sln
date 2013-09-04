@@ -5,10 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "callback", "callback\callba
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "interceptor", "interceptor\interceptor.vcxproj", "{3A63512E-74A1-4446-960D-C59AE4E218E8}"
 	ProjectSection(ProjectDependencies) = postProject
-		{5EA329A6-CC53-488D-923F-7C99A2129250} = {5EA329A6-CC53-488D-923F-7C99A2129250}
+		{58C6CA64-39D8-40C1-98E3-816A902971E0} = {58C6CA64-39D8-40C1-98E3-816A902971E0}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "callback_empty", "callback_empty\callback_empty.vcxproj", "{5EA329A6-CC53-488D-923F-7C99A2129250}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +22,6 @@ Global
 		{3A63512E-74A1-4446-960D-C59AE4E218E8}.Debug|Win32.Build.0 = Debug|Win32
 		{3A63512E-74A1-4446-960D-C59AE4E218E8}.Release|Win32.ActiveCfg = Release|Win32
 		{3A63512E-74A1-4446-960D-C59AE4E218E8}.Release|Win32.Build.0 = Release|Win32
-		{5EA329A6-CC53-488D-923F-7C99A2129250}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5EA329A6-CC53-488D-923F-7C99A2129250}.Debug|Win32.Build.0 = Debug|Win32
-		{5EA329A6-CC53-488D-923F-7C99A2129250}.Release|Win32.ActiveCfg = Release|Win32
-		{5EA329A6-CC53-488D-923F-7C99A2129250}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
