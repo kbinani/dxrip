@@ -138,7 +138,10 @@ D3D9CALLBACK_API bool ReportDrawIndexedPrimitive(
             meshFile = repository->GetContentsHash(meshDesc) + ".x";
         }
 
-        context->GetSceneObjects()->AddAsync(context->GetSceneCount(), repository->GetContentsHash(meshDesc));
+        SceneObjectDao * const dao = context->GetSceneObjects();
+        if (dao && repository->Exists(meshDesc)) {
+            dao->AddAsync(context->GetSceneCount(), repository->GetContentsHash(meshDesc));
+        }
     }
     return true;
 }
