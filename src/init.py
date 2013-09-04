@@ -40,5 +40,5 @@ class Init:
     def __deploy_dlls(self):
         data_directory = os.path.join(os.path.dirname(dxrip.__file__), "data")
         destination_directory = os.path.dirname(self.__config.target)
-        for file in ["d3d9.dll", "d3d9callback.dll"]:
+        for file in ["d3d9.dll"]:
             shutil.copyfile(os.path.join(data_directory, file), os.path.join(destination_directory, file))
